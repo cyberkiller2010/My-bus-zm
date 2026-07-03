@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>BusHub Zambia</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:radial-gradient(circle at 10% 20%,#0a0c18,#020308);color:#edeef2;min-height:100vh;padding:1rem;padding-bottom:90px;overflow-x:hidden}
+    .app{max-width:1400px;margin:0 auto;background:rgba(12,14,28,0.7);backdrop-filter:blur(18px);border-radius:2rem;border:1px solid rgba(255,255,255,0.08);overflow:hidden;min-height:80vh;position:relative}
+    .top-nav{padding:.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(6,8,16,0.7);flex-wrap:wrap;gap:10px}
+    .logo h1{font-size:1.3rem;background:linear-gradient(135deg,#fff,#b7b2ff);-webkit-background-clip:text;background-clip:text;color:transparent;display:flex;align-items:center;gap:8px}
+    .logo h1 i{color:#6c5ce7}
+    .logo span{font-size:0.6rem;color:#9da3d4;display:block}
+    .nav-actions{display:flex;gap:8px;align-items:center}
+    .menu-btn{background:#2d325a;border:none;color:white;padding:.4rem .8rem;border-radius:0.8rem;cursor:pointer;font-size:1.2rem;transition:.2s;border:1px solid rgba(255,255,255,0.05)}
+    .menu-btn:hover{background:#6c5ce7}
+    .user-badge{display:flex;align-items:center;gap:8px;background:#2d325a;padding:.2rem .8rem .2rem .2rem;border-radius:2rem;border:1px solid rgba(255,255,255,0.05)}
+    .user-badge .avatar{width:30px;height:30px;border-radius:50%;background:#6c5ce7;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.7rem}
+    .user-badge .user-info{font-size:.65rem}
+    .user-badge .user-info .name{font-weight:600;color:#edeef2}
+    .user-badge .user-info .role{color:#8b92e8;font-size:.5rem;text-transform:uppercase}
+    
+    .sidebar-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999}
+    .sidebar-overlay.active{display:block}
+    
+    .sidebar{position:fixed;top:0;left:-320px;width:300px;height:100%;background:#14172b;z-index:1000;transition:left .3s ease;padding:1.5rem 0;overflow-y:auto;border-right:1px solid rgba(255,255,255,0.07)}
+    .sidebar.open{left:0}
+    .sidebar-brand{padding:0 1.5rem 1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:1rem;display:flex;align-items:center;gap:10px}
+    .sidebar-brand .brand-icon{width:36px;height:36px;border-radius:0.8rem;background:linear-gradient(135deg,#8b92e8,#6c5ce7);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:white;flex-shrink:0}
+    .sidebar-brand .brand-text h1{font-size:1rem;color:#edeef2}
+    .sidebar-brand .brand-text span{font-size:0.55rem;color:#9da3d4;display:block}
+    .sidebar-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:#9da3d4;font-size:1.2rem;cursor:pointer;transition:.2s}
+    .sidebar-close:hover{color:white}
+    .sidebar-menu{list-style:none;padding:0 0.8rem}
+    .sidebar-menu li{margin-bottom:0.2rem}
+    .sidebar-menu li a{display:flex;align-items:center;gap:10px;padding:0.6rem 1rem;border-radius:0.8rem;color:#b6bdf0;text-decoration:none;font-size:0.8rem;font-weight:500;transition:0.2s;cursor:pointer;border:none;background:none;width:100%;text-align:left}
+    .sidebar-menu li a:hover{background:#2d325a;color:white}
+    .sidebar-menu li a.active{background:#6c5ce7;color:white;box-shadow:0 0 20px rgba(108,92,231,0.2)}
+    .sidebar-menu li a i{width:18px;text-align:center;font-size:0.9rem;color:#8b92e8}
+    .sidebar-menu li a.active i{color:white}
+    .sidebar-menu .divider{height:1px;background:rgba(255,255,255,0.07);margin:0.6rem 0.8rem}
+    .sidebar-menu .menu-label{font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;color:#5a5f8a;padding:0.4rem 1rem;font-weight:600}
+    .sidebar-back{display:flex;align-items:center;gap:8px;padding:0.4rem 1rem;margin:0 0.8rem 0.8rem 0.8rem;border-radius:0.8rem;color:#8b92e8;cursor:pointer;font-size:0.75rem;border:1px solid rgba(255,255,255,0.05);background:transparent;transition:.2s;width:calc(100% - 1.6rem)}
+    .sidebar-back:hover{background:#2d325a;color:white}
+    
+    .page{display:none;animation:fadeIn .3s ease;padding:1.2rem}
+    .page.active{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .page h2{font-size:1.2rem;margin-bottom:0.2rem;color:#edeef2;display:flex;align-items:center;gap:8px}
+    .page h2 i{color:#6c5ce7}
+    .page .subtitle{color:#b6bdf0;font-size:0.8rem;margin-bottom:1rem}
+    
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.8rem;margin-bottom:1rem}
+    .stat-card{background:rgba(24,27,52,0.8);border-radius:1rem;padding:0.8rem 1rem;border:1px solid rgba(255,255,255,0.05);transition:.2s;cursor:pointer}
+    .stat-card:hover{background:#2d325b;border-color:#6c5ce7;transform:translateY(-3px)}
+    .stat-card .stat-icon{font-size:1.2rem;color:#8b92e8;margin-bottom:0.2rem}
+    .stat-card .stat-value{font-size:1.3rem;font-weight:700;color:#edeef2}
+    .stat-card .stat-label{font-size:0.6rem;color:#b6bdf0;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px}
+    
+    .action-btn{background:#2d325a;border:none;padding:0.35rem 1rem;border-radius:2rem;color:white;font-size:0.7rem;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:.2s}
+    .action-btn:hover{background:#6c5ce7;transform:scale(1.02)}
+    .action-btn.primary{background:linear-gradient(90deg,#8b92e8,#6c5ce7)}
+    .action-btn.success{background:#1a4a2a}
+    .action-btn.danger{background:#5a2a2a}
+    .action-btn.info{background:#1a3a5a}
+    .action-buttons{display:flex;gap:0.6rem;flex-wrap:wrap;margin:0.5rem 0 1rem 0}
+    
+    .list-item{background:rgba(24,27,52,0.6);border-radius:0.8rem;padding:0.6rem 0.8rem;margin-bottom:0.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;border:1px solid rgba(255,255,255,0.03);transition:.2s}
+    .list-item:hover{background:#2d325b;border-color:#6c5ce7}
+    .list-item .item-left{display:flex;flex-direction:column;gap:1px}
+    .list-item .item-left .title{font-weight:600;font-size:0.85rem;color:#edeef2}
+    .list-item .item-left .subtitle{font-size:0.65rem;color:#b6bdf0}
+    .list-item .item-right{display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap}
+    .badge{font-size:0.55rem;padding:0.15rem 0.5rem;border-radius:2rem;font-weight:600;text-transform:uppercase}
+    .badge.pending{background:#5a4a20;color:#f0d060}
+    .badge.approved{background:#1a4a2a;color:#60f080}
+    .badge.active{background:#1a3a5a;color:#60a0f0}
+    .badge.present{background:#1a4a2a;color:#60f080}
+    .badge.absent{background:#4a1a1a;color:#f06060}
+    
+    .search-grid{display:grid;grid-template-columns:1fr 1fr 0.6fr;gap:0.6rem;background:rgba(24,28,48,0.7);padding:0.4rem 0.8rem;border-radius:3rem;border:1px solid #2a2e50;align-items:center}
+    .search-item{display:flex;align-items:center;gap:8px;padding:0.3rem 0.2rem;border-right:1px solid #2a2e50;position:relative}
+    .search-item:last-child{border-right:none}
+    .search-item i{color:#8b92e8;font-size:0.8rem;width:14px}
+    .search-item input{background:transparent;border:none;color:#edeef2;font-size:0.8rem;width:100%;outline:none;font-family:'Inter',sans-serif}
+    .search-item input::placeholder{color:#9da3d4}
+    .search-item input[type="date"]{color-scheme:dark}
+    .search-btn{background:linear-gradient(90deg,#8b92e8,#6c5ce7);border:none;padding:0.5rem 1.5rem;border-radius:2rem;font-weight:600;color:white;cursor:pointer;font-size:0.8rem;transition:.2s;box-shadow:0 0 20px rgba(108,92,231,0.3)}
+    .search-btn:hover{transform:scale(1.02);box-shadow:0 0 30px rgba(108,92,231,0.5)}
+    
+    .suggestions-box{position:absolute;top:32px;left:0;width:100%;background:#12142ad9;backdrop-filter:blur(12px);border-radius:0.8rem;max-height:180px;overflow-y:auto;z-index:100;border:1px solid #3d4270;display:none}
+    .suggestion-item{padding:0.4rem 0.8rem;cursor:pointer;border-bottom:1px solid #2a2e55;font-size:0.8rem;color:#b6bdf0}
+    .suggestion-item:hover{background:#2d325b;color:white}
+    
+    .bus-card{background:rgba(24,27,52,0.8);border-radius:1rem;padding:0.8rem 1rem;margin-bottom:0.6rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.6rem;border:1px solid rgba(255,255,255,0.05);transition:.2s}
+    .bus-card:hover{background:#2d325b;border-color:#6c5ce7}
+    .bus-card .bus-info{display:flex;flex-direction:column;gap:1px;flex:1}
+    .bus-card .bus-info .company{font-weight:700;font-size:0.9rem;color:#edeef2}
+    .bus-card .bus-info .details{font-size:0.7rem;color:#b6bdf0}
+    .bus-card .bus-info .seats{font-size:0.65rem;color:#8b92e8}
+    .bus-card .bus-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+    .bus-card .bus-right .price{font-size:1.1rem;font-weight:700;color:#edeef2}
+    .bus-card .bus-right .actions{display:flex;gap:0.4rem;align-items:center}
+    .bus-card .bus-right .eye-btn{background:#2d325a;border:none;width:28px;height:28px;border-radius:50%;color:#b6bdf0;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;font-size:0.7rem}
+    .bus-card .bus-right .eye-btn:hover{background:#6c5ce7;color:white}
+    .bus-card .bus-right .select-btn{background:#6c5ce7;border:none;padding:0.2rem 1rem;border-radius:2rem;color:white;font-weight:600;font-size:0.65rem;cursor:pointer;transition:.2s}
+    .bus-card .bus-right .select-btn:hover{background:#8b92e8;transform:scale(1.05)}
+    .bus-card .bus-right .select-btn:disabled{opacity:0.3;cursor:not-allowed;transform:none}
+    
+    .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:2000;align-items:center;justify-content:center}
+    .modal-overlay.active{display:flex}
+    .modal-content{background:#14172b;border-radius:1.5rem;padding:1.5rem;width:92%;max-width:520px;max-height:90vh;overflow-y:auto;border:1px solid rgba(108,92,231,0.2)}
+    .modal-content h2{font-size:1.1rem;margin-bottom:0.3rem;color:#edeef2;display:flex;align-items:center;gap:10px}
+    .modal-content h2 i{color:#6c5ce7}
+    .modal-content .sub{color:#b6bdf0;font-size:0.8rem;margin-bottom:0.8rem}
+    .close-modal-btn{display:block;margin:1rem auto 0;background:#2d325a;border:1px solid rgba(255,255,255,0.1);color:#edeef2;padding:0.4rem 1.2rem;border-radius:2rem;font-weight:600;cursor:pointer;font-size:0.75rem;transition:.3s;font-family:'Inter',sans-serif}
+    .close-modal-btn:hover{background:#6c5ce7}
+    
+    .seat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.4rem;margin:0.8rem 0}
+    .seat{aspect-ratio:1/1;border-radius:0.4rem;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:600;cursor:pointer;transition:.2s;border:2px solid transparent;background:#1e213f;color:#b6bdf0;user-select:none}
+    .seat.available:hover{background:#3d4270;transform:scale(1.05)}
+    .seat.selected{background:#6c5ce7;color:white;border-color:#8b92e8;box-shadow:0 0 20px rgba(108,92,231,0.4)}
+    .seat.booked{background:#2a1a2a;color:#5a4a5a;cursor:not-allowed;border-color:#3a2a3a;opacity:0.5}
+    .seat-legend{display:flex;gap:0.8rem;flex-wrap:wrap;justify-content:center;margin:0.4rem 0;font-size:0.65rem}
+    .seat-legend span{display:flex;align-items:center;gap:4px}
+    .legend-box{width:14px;height:14px;border-radius:3px;display:inline-block}
+    .legend-box.avail{background:#1e213f;border:1px solid #2a2e50}
+    .legend-box.sel{background:#6c5ce7}
+    .legend-box.book{background:#2a1a2a;border:1px solid #3a2a3a}
+    
+    .passenger-form .form-group{margin-bottom:0.6rem;display:flex;flex-direction:column;gap:2px}
+    .passenger-form .form-group label{font-size:0.7rem;font-weight:500;color:#b6bdf0}
+    .passenger-form .form-group input{background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.4rem 0.7rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;transition:.2s}
+    .passenger-form .form-group input:focus{border-color:#6c5ce7;box-shadow:0 0 15px rgba(108,92,231,0.15)}
+    .passenger-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+    
+    .confirm-btn{background:linear-gradient(90deg,#8b92e8,#6c5ce7);border:none;padding:0.6rem 1.5rem;border-radius:2rem;font-weight:600;color:white;cursor:pointer;font-size:0.85rem;transition:.2s;width:100%;margin-top:0.6rem;box-shadow:0 0 20px rgba(108,92,231,0.2)}
+    .confirm-btn:hover{transform:scale(1.02)}
+    .confirm-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+    
+    .payment-section{display:none;animation:fadeIn .3s ease;margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.05)}
+    .payment-section.active{display:block}
+    .payment-methods{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.4rem;margin:0.4rem 0 0.8rem 0}
+    .payment-methods button{background:#2d325a;border:2px solid transparent;border-radius:0.6rem;padding:0.4rem;color:#b6bdf0;cursor:pointer;transition:.2s;font-size:0.65rem;font-weight:500}
+    .payment-methods button:hover{background:#3d4270}
+    .payment-methods button.selected{border-color:#6c5ce7;background:#2d325a;color:white}
+    .payment-methods button i{display:block;font-size:1rem;margin-bottom:2px;color:#8b92e8}
+    .payment-methods button.selected i{color:white}
+    
+    .booking-bar{position:fixed;bottom:0;left:0;right:0;background:#05070fe6;backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.1);padding:0.4rem 1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;z-index:1000}
+    .booking-bar .info{display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;font-size:0.75rem}
+    .booking-bar .info .label{color:#b6bdf0}
+    .booking-bar .info .value{font-weight:600;color:#edeef2}
+    .booking-bar .info .price{color:#8b92e8;font-weight:700}
+    .booking-bar .view-btn{background:linear-gradient(90deg,#8b92e8,#6c5ce7);border:none;padding:0.3rem 1.2rem;border-radius:2rem;font-weight:600;color:white;cursor:pointer;font-size:0.75rem;transition:.2s}
+    .booking-bar .view-btn:hover{transform:scale(1.02)}
+    .booking-bar .view-btn:disabled{opacity:0.4;cursor:not-allowed}
+    
+    .search-placeholder{text-align:center;padding:2rem 1.5rem;color:#b6bdf0}
+    .search-placeholder i{font-size:3rem;color:#2d325a;margin-bottom:0.8rem;display:block}
+    .search-placeholder h3{color:#edeef2;font-size:1rem;margin-bottom:0.3rem}
+    
+    .toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#1f2342;backdrop-filter:blur(16px);padding:0.3rem 1rem;border-radius:40px;z-index:1100;font-size:0.75rem;border:1px solid #6c5ce7;color:#edeef2}
+    
+    .route-form{background:rgba(10,12,24,0.8);border-radius:1rem;padding:1rem;border:1px solid #2a2e50;margin-bottom:1rem}
+    .route-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+    .route-form .form-group{margin-bottom:0.6rem;display:flex;flex-direction:column;gap:2px}
+    .route-form .form-group label{font-size:0.7rem;font-weight:500;color:#b6bdf0}
+    .route-form .form-group input,.route-form .form-group select{background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.4rem 0.7rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;transition:.2s}
+    .route-form .form-group input:focus,.route-form .form-group select:focus{border-color:#6c5ce7}
+    
+    .branch-view-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:0.8rem}
+    .branch-card{background:rgba(24,27,52,0.8);border-radius:1rem;padding:1rem;border:1px solid rgba(255,255,255,0.05);transition:.2s;cursor:pointer}
+    .branch-card:hover{background:#2d325b;border-color:#6c5ce7;transform:translateY(-3px)}
+    .branch-card .branch-name{font-weight:700;font-size:1rem;color:#edeef2}
+    .branch-card .branch-detail{font-size:0.7rem;color:#b6bdf0;margin:4px 0}
+    .branch-card .branch-actions{display:flex;gap:0.4rem;margin-top:0.6rem;flex-wrap:wrap}
+    
+    .table-wrapper{overflow-x:auto;margin-top:0.8rem}
+    table{width:100%;border-collapse:collapse;font-size:0.8rem}
+    table thead{background:rgba(10,12,24,0.6);border-bottom:1px solid #2a2e50}
+    table th{text-align:left;padding:0.5rem 0.8rem;color:#b6bdf0;font-weight:600;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.05em}
+    table td{padding:0.5rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.03);color:#edeef2}
+    table tr:hover td{background:rgba(45,50,90,0.3)}
+    .table-search{margin-bottom:0.8rem;display:flex;gap:0.6rem;flex-wrap:wrap}
+    .table-search input{flex:1;background:#0f1122;border:1px solid #42477a;border-radius:2rem;padding:0.4rem 1rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;min-width:150px}
+    .table-search input:focus{border-color:#6c5ce7}
+    
+    .date-divider{font-weight:700;color:#8b92e8;padding:0.6rem 0;border-bottom:3px solid #6c5ce7;margin-top:0.5rem;font-size:0.9rem;background:rgba(108,92,231,0.1)}
+    .date-divider td{padding:0.6rem 0.8rem;font-weight:700;color:#8b92e8;background:rgba(108,92,231,0.08)}
+    
+    .present-btn{background:#1a4a2a;border:none;padding:0.2rem 0.8rem;border-radius:2rem;color:white;font-size:0.65rem;cursor:pointer;transition:.2s}
+    .present-btn:hover{background:#2a6a3a;transform:scale(1.05)}
+    .present-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+    
+    .status-present{color:#4ade80;font-weight:700}
+    .status-absent{color:#f06060;font-weight:700}
+    
+    .settings-form{max-width:500px;background:rgba(10,12,24,0.8);border-radius:1rem;padding:1.5rem;border:1px solid #2a2e50}
+    .settings-form .form-group{margin-bottom:0.8rem;display:flex;flex-direction:column;gap:2px}
+    .settings-form .form-group label{font-size:0.75rem;font-weight:500;color:#b6bdf0}
+    .settings-form .form-group input{background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;transition:.2s}
+    .settings-form .form-group input:focus{border-color:#6c5ce7}
+    .settings-form .btn-submit{background:linear-gradient(90deg,#8b92e8,#6c5ce7);border:none;padding:0.5rem 1.5rem;border-radius:2rem;font-weight:600;color:white;cursor:pointer;font-size:0.8rem;transition:.2s;width:100%}
+    .settings-form .btn-submit:hover{transform:scale(1.02)}
+    
+    .management-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .management-card{background:rgba(24,27,52,0.8);border-radius:1rem;padding:1rem;border:1px solid rgba(255,255,255,0.05)}
+    .management-card h3{color:#edeef2;font-size:0.9rem;margin-bottom:0.6rem;display:flex;align-items:center;gap:6px}
+    .management-card h3 i{color:#6c5ce7}
+    
+    @media(max-width:768px){body{padding:0.5rem;padding-bottom:80px}.app{border-radius:1rem}.top-nav{padding:.5rem 0.8rem}.page{padding:0.8rem}.search-grid{grid-template-columns:1fr;border-radius:1.2rem;background:transparent;padding:0;gap:0.4rem}.search-item{background:rgba(24,28,48,0.7);padding:0.4rem 0.8rem;border-radius:2rem;border-right:none;border:1px solid #2a2e50}.search-btn{width:100%;justify-content:center;padding:0.6rem}.bus-card{flex-direction:column;align-items:stretch;text-align:center}.bus-card .bus-right{align-items:center}.stats-grid{grid-template-columns:1fr 1fr}.sidebar{width:280px;left:-280px}.booking-bar{flex-direction:column;align-items:stretch}.route-form .form-row{grid-template-columns:1fr}.passenger-form .form-row{grid-template-columns:1fr}.branch-view-grid{grid-template-columns:1fr}.settings-form{padding:1rem}.management-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ===== TOP NAVBAR ===== -->
+  <div class="top-nav">
+    <div class="logo">
+      <h1><i class="fas fa-bus"></i> BusHub</h1>
+      <span>Zambia · Book Your Ride</span>
+    </div>
+    <div class="nav-actions">
+      <div class="user-badge">
+        <div class="avatar" id="userAvatar">GU</div>
+        <div class="user-info">
+          <div class="name" id="userName">Guest</div>
+          <div class="role" id="userRole">Passenger</div>
+        </div>
+      </div>
+      <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+
+  <!-- ===== SIDEBAR OVERLAY ===== -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <div class="sidebar" id="sidebar">
+    <button class="sidebar-close" onclick="closeSidebar()"><i class="fas fa-times"></i></button>
+    <div class="sidebar-brand">
+      <div class="brand-icon">BH</div>
+      <div class="brand-text">
+        <h1>BusHub</h1>
+        <span>Zambia</span>
+      </div>
+    </div>
+    <div id="sidebarContent">
+      <!-- Dynamic content injected by JavaScript -->
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: PASSENGER ===== -->
+  <!-- ============================================================ -->
+  <div class="page active" id="page-passenger">
+    <h2><i class="fas fa-search"></i> Find Your Bus</h2>
+    <p class="subtitle">Search for available buses across Zambia.</p>
+    
+    <div class="search-section">
+      <div class="search-grid">
+        <div class="search-item">
+          <i class="fas fa-map-pin"></i>
+          <input type="text" id="fromInput" placeholder="From (e.g. Lusaka)" autocomplete="off">
+          <div class="suggestions-box" id="fromSuggestions"></div>
+        </div>
+        <div class="search-item">
+          <i class="fas fa-flag-checkered"></i>
+          <input type="text" id="toInput" placeholder="To (e.g. Livingstone)" autocomplete="off">
+          <div class="suggestions-box" id="toSuggestions"></div>
+        </div>
+        <div class="search-item">
+          <i class="fas fa-calendar-day"></i>
+          <input type="date" id="dateInput">
+        </div>
+        <button class="search-btn" id="searchBtn"><i class="fas fa-search"></i> Search</button>
+      </div>
+    </div>
+    
+    <div id="searchPlaceholder" class="search-placeholder">
+      <i class="fas fa-bus"></i>
+      <h3>Find your bus</h3>
+      <p>Enter your route and date above, then click Search.</p>
+    </div>
+    
+    <div id="resultsContainer" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.4rem;">
+        <div style="font-size:0.8rem;color:#b6bdf0;">From <strong id="fromDisplay" style="color:#edeef2;">—</strong> → To <strong id="toDisplay" style="color:#edeef2;">—</strong></div>
+        <span style="font-size:0.65rem;color:#8b92e8;" id="busCount">0 buses found</span>
+      </div>
+      <div id="busList"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: SUPER ADMIN OVERVIEW ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-superadmin">
+    <h2><i class="fas fa-user-shield"></i> Platform Overview</h2>
+    <p class="subtitle">Welcome back, Super Admin.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-building"></i></div><div class="stat-value">47</div><div class="stat-label">Total Companies</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-value">K 1,245,800</div><div class="stat-label">Total Earnings</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-ticket-alt"></i></div><div class="stat-value">1,234</div><div class="stat-label">Total Bookings</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">892</div><div class="stat-label">Registered Passengers</div></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: SUPER ADMIN PENDING APPROVALS ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-pending">
+    <h2><i class="fas fa-clock"></i> Pending Approvals</h2>
+    <p class="subtitle">Review and approve new bus companies.</p>
+    <div class="list-item"><div class="item-left"><div class="title">Zambia Express</div><div class="subtitle">License: ZB-2026-045 · Requested 2 days ago</div></div><div class="item-right"><span class="badge pending">Pending</span><button class="action-btn success" onclick="showToast('✅ Zambia Express approved!')"><i class="fas fa-check"></i> Approve</button><button class="action-btn danger" onclick="showToast('❌ Zambia Express rejected.')"><i class="fas fa-times"></i> Reject</button></div></div>
+    <div class="list-item"><div class="item-left"><div class="title">Greenline Travel</div><div class="subtitle">License: GT-2026-112 · Requested 5 days ago</div></div><div class="item-right"><span class="badge pending">Pending</span><button class="action-btn success" onclick="showToast('✅ Greenline Travel approved!')"><i class="fas fa-check"></i> Approve</button><button class="action-btn danger" onclick="showToast('❌ Greenline Travel rejected.')"><i class="fas fa-times"></i> Reject</button></div></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: SUPER ADMIN PLATFORM SETTINGS ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-settings-super">
+    <h2><i class="fas fa-cog"></i> Platform Settings</h2>
+    <p class="subtitle">Manage platform configuration.</p>
+    <div class="settings-form">
+      <h3 style="color:#edeef2;font-size:1rem;margin-bottom:0.8rem;">Change Password</h3>
+      <div class="form-group"><label>Current Password</label><input type="password" id="superCurrentPwd" placeholder="Enter current password"></div>
+      <div class="form-group"><label>New Password</label><input type="password" id="superNewPwd" placeholder="Enter new password"></div>
+      <div class="form-group"><label>Confirm New Password</label><input type="password" id="superConfirmPwd" placeholder="Confirm new password"></div>
+      <button class="btn-submit" onclick="changeSuperPassword()"><i class="fas fa-key"></i> Update Password</button>
+      
+      <hr style="border-color:#2a2e50;margin:1.2rem 0;">
+      
+      <h3 style="color:#edeef2;font-size:1rem;margin-bottom:0.8rem;">Edit Company Details</h3>
+      <div class="form-group"><label>Company Name</label><input type="text" id="superCompanyName" value="BusHub Zambia"></div>
+      <div class="form-group"><label>License Number</label><input type="text" id="superLicense" value="BH-2026-001"></div>
+      <div class="form-group"><label>Contact Email</label><input type="email" id="superContactEmail" value="admin@bushub.zm"></div>
+      <div class="form-group"><label>Phone</label><input type="tel" id="superPhone" value="+260 977 123 456"></div>
+      <button class="btn-submit" onclick="updateSuperCompany()"><i class="fas fa-save"></i> Save Company Details</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: COMPANY ADMIN OVERVIEW ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-company">
+    <h2><i class="fas fa-building"></i> Company Overview</h2>
+    <p class="subtitle">Welcome back, Company Admin.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-calendar-check"></i></div><div class="stat-value">12</div><div class="stat-label">Today's Trips</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">342</div><div class="stat-label">Today's Passengers</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-pie"></i></div><div class="stat-value">76%</div><div class="stat-label">Occupancy Rate</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div><div class="stat-value">K 28,450</div><div class="stat-label">Revenue Today</div></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: COMPANY ADMIN BRANCH VIEW ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-branchview">
+    <h2><i class="fas fa-store"></i> Branch View</h2>
+    <p class="subtitle">View branches and their bookings.</p>
+    
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <input type="text" id="branchSearchInput" placeholder="Search branch by name or location..." style="flex:1;background:#0f1122;border:1px solid #42477a;border-radius:2rem;padding:0.5rem 1rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;min-width:150px;">
+      <button class="action-btn primary" onclick="searchBranch()"><i class="fas fa-search"></i> Search</button>
+    </div>
+    
+    <div id="branchListContainer" class="branch-view-grid">
+      <!-- Branches rendered by JS -->
+    </div>
+
+    <div id="bookingsContainer" style="display:none;margin-top:1.5rem;">
+      <h3 style="color:#edeef2;font-size:1rem;margin-bottom:0.5rem;" id="selectedBranchName">Bookings for <span style="color:#6c5ce7;">Branch Name</span></h3>
+      
+      <div class="table-search">
+        <input type="text" id="tableSearchInput" placeholder="Search by name, age, route, PNR, date..." oninput="filterTable()">
+        <button class="action-btn info" onclick="filterTable()"><i class="fas fa-search"></i> Search</button>
+        <button class="action-btn" onclick="clearTableSearch()"><i class="fas fa-times"></i> Clear</button>
+      </div>
+      
+      <div class="table-wrapper">
+        <table id="bookingsTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Route</th>
+              <th>PNR</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody">
+            <!-- Rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: COMPANY ADMIN MANAGEMENT ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-management-company">
+    <h2><i class="fas fa-cogs"></i> Management</h2>
+    <p class="subtitle">Manage branches.</p>
+    
+    <div class="management-grid">
+      <div class="management-card">
+        <h3><i class="fas fa-plus-circle" style="color:#4ade80;"></i> Add Branch</h3>
+        <div class="form-group"><label>Branch Name</label><input type="text" id="companyBranchName" placeholder="e.g., Lusaka Downtown"></div>
+        <div class="form-group"><label>Location</label><input type="text" id="companyBranchLocation" placeholder="e.g., Lusaka"></div>
+        <div class="form-group"><label>Manager Name</label><input type="text" id="companyBranchManager" placeholder="e.g., Mary Banda"></div>
+        <div class="form-group"><label>Staff Count</label><input type="number" id="companyBranchStaff" placeholder="e.g., 8"></div>
+        <button class="action-btn primary" onclick="addBranchCompany()" style="width:100%;justify-content:center;"><i class="fas fa-plus"></i> Add Branch</button>
+      </div>
+      
+      <div class="management-card">
+        <h3><i class="fas fa-trash" style="color:#f06060;"></i> Delete Branch</h3>
+        <div class="form-group"><label>Select Branch to Delete</label>
+          <select id="companyDeleteBranchSelect">
+            <option value="">Select branch...</option>
+          </select>
+        </div>
+        <button class="action-btn danger" onclick="deleteBranchCompany()" style="width:100%;justify-content:center;"><i class="fas fa-trash"></i> Delete Branch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: COMPANY ADMIN SETTINGS ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-settings-company">
+    <h2><i class="fas fa-cog"></i> Settings</h2>
+    <p class="subtitle">Manage your account.</p>
+    <div class="settings-form">
+      <h3 style="color:#edeef2;font-size:1rem;margin-bottom:0.8rem;">Change Password</h3>
+      <div class="form-group"><label>Current Password</label><input type="password" id="companyCurrentPwd" placeholder="Enter current password"></div>
+      <div class="form-group"><label>New Password</label><input type="password" id="companyNewPwd" placeholder="Enter new password"></div>
+      <div class="form-group"><label>Confirm New Password</label><input type="password" id="companyConfirmPwd" placeholder="Confirm new password"></div>
+      <button class="btn-submit" onclick="changeCompanyPassword()"><i class="fas fa-key"></i> Update Password</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: BRANCH MANAGER OVERVIEW ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-branch">
+    <h2><i class="fas fa-store"></i> Branch Overview</h2>
+    <p class="subtitle">Welcome back, Branch Manager.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div><div class="stat-value">K 12,450</div><div class="stat-label">Total Earnings</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">67</div><div class="stat-label">Total Customers</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-ticket-alt"></i></div><div class="stat-value">23</div><div class="stat-label">Tickets Sold Today</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-user-friends"></i></div><div class="stat-value">11</div><div class="stat-label">Walk-in Customers</div></div>
+    </div>
+    
+    <div style="font-size:0.9rem;font-weight:600;margin:1rem 0 0.6rem 0;display:flex;align-items:center;gap:6px;color:#edeef2;"><i class="fas fa-list" style="color:#6c5ce7;"></i> All Bookings</div>
+    <div id="branchManagerBookings">
+      <!-- Bookings rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: BRANCH MANAGER MANAGEMENT ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-branch-management">
+    <h2><i class="fas fa-cogs"></i> Management</h2>
+    <p class="subtitle">Manage buses and routes.</p>
+    
+    <div class="management-grid">
+      <div class="management-card">
+        <h3><i class="fas fa-bus" style="color:#60a0f0;"></i> Add Bus</h3>
+        <div class="form-group"><label>Bus Name</label><input type="text" id="branchBusName" placeholder="e.g., Sharma Travels #ABC-123"></div>
+        <div class="form-group"><label>Capacity (Seats)</label><input type="number" id="branchBusCapacity" placeholder="e.g., 40"></div>
+        <div class="form-group"><label>Bus Type</label>
+          <select id="branchBusType">
+            <option value="AC Sleeper">AC Sleeper</option>
+            <option value="Seater">Seater</option>
+            <option value="AC Seater">AC Seater</option>
+            <option value="Economy">Economy</option>
+          </select>
+        </div>
+        <button class="action-btn primary" onclick="addBusBranch()" style="width:100%;justify-content:center;"><i class="fas fa-plus"></i> Add Bus</button>
+      </div>
+      
+      <div class="management-card">
+        <h3><i class="fas fa-route" style="color:#f0d060;"></i> Add Route</h3>
+        <div class="form-group"><label>Select Bus</label>
+          <select id="branchRouteBus">
+            <option value="">Select bus...</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Route From</label><input type="text" id="branchRouteFrom" placeholder="e.g., Kaoma"></div>
+        <div class="form-group"><label>Route To</label><input type="text" id="branchRouteTo" placeholder="e.g., Lusaka"></div>
+        <div class="form-group"><label>Price (K)</label><input type="number" id="branchRoutePrice" placeholder="e.g., 150"></div>
+        <div class="form-group"><label>Departure Time</label><input type="time" id="branchRouteDeparture"></div>
+        <div class="form-group"><label>Arrival Time</label><input type="time" id="branchRouteArrival"></div>
+        <button class="action-btn primary" onclick="addRouteBranch()" style="width:100%;justify-content:center;"><i class="fas fa-plus"></i> Add Route</button>
+      </div>
+    </div>
+    
+    <div style="margin-top:1rem;">
+      <h3 style="color:#edeef2;font-size:0.9rem;margin-bottom:0.5rem;">Added Buses & Routes</h3>
+      <div id="branchBusList"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: BRANCH MANAGER VIEW BRANCH ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-branch-viewbranch">
+    <h2><i class="fas fa-store"></i> View Branch</h2>
+    <p class="subtitle">View branch details and bookings.</p>
+    
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <input type="text" id="branchViewSearchInput" placeholder="Search bookings..." style="flex:1;background:#0f1122;border:1px solid #42477a;border-radius:2rem;padding:0.5rem 1rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;min-width:150px;">
+      <button class="action-btn primary" onclick="filterBranchView()"><i class="fas fa-search"></i> Search</button>
+      <button class="action-btn" onclick="clearBranchViewSearch()"><i class="fas fa-times"></i> Clear</button>
+    </div>
+    
+    <div class="table-wrapper">
+      <table id="branchViewTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Route</th>
+            <th>PNR</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="branchViewTableBody">
+          <!-- Rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: BRANCH MANAGER SETTINGS ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-settings-branch">
+    <h2><i class="fas fa-cog"></i> Settings</h2>
+    <p class="subtitle">Manage your account.</p>
+    <div class="settings-form">
+      <h3 style="color:#edeef2;font-size:1rem;margin-bottom:0.8rem;">Change Password</h3>
+      <div class="form-group"><label>Current Password</label><input type="password" id="branchCurrentPwd" placeholder="Enter current password"></div>
+      <div class="form-group"><label>New Password</label><input type="password" id="branchNewPwd" placeholder="Enter new password"></div>
+      <div class="form-group"><label>Confirm New Password</label><input type="password" id="branchConfirmPwd" placeholder="Confirm new password"></div>
+      <button class="btn-submit" onclick="changeBranchPassword()"><i class="fas fa-key"></i> Update Password</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== PAGE: REGISTER COMPANY ===== -->
+  <!-- ============================================================ -->
+  <div class="page" id="page-register">
+    <h2><i class="fas fa-building"></i> Register Company</h2>
+    <p class="subtitle">Register your bus company on BusHub Zambia.</p>
+    <div style="max-width:500px;margin:0 auto;background:rgba(24,27,52,0.8);border-radius:1rem;padding:1.5rem;border:1px solid rgba(255,255,255,0.05);">
+      <div class="form-group"><label>Company Name</label><input type="text" placeholder="e.g., Sharma Travels" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;"></div>
+      <div class="form-group"><label>License Number</label><input type="text" placeholder="e.g., ZB-2026-045" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;"></div>
+      <div class="form-group"><label>Contact Person</label><input type="text" placeholder="e.g., Mr. Sharma" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;"></div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="info@sharmatravels.zm" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;"></div>
+      <div class="form-group"><label>Phone</label><input type="tel" placeholder="+260 977 123 456" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;"></div>
+      <button class="action-btn primary" style="width:100%;justify-content:center;padding:0.7rem;" onclick="showToast('✅ Company registered! Awaiting approval.')"><i class="fas fa-check"></i> Register Company</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== BOTTOM BAR ===== -->
+<div class="booking-bar" id="bookingBar">
+  <div class="info">
+    <span class="label">Selected:</span>
+    <span class="value" id="selectedRoute">—</span>
+    <span class="price" id="selectedPrice">K 0</span>
+  </div>
+  <button class="view-btn" id="viewBookingBtn" disabled>
+    <i class="fas fa-eye"></i> View Booking
+  </button>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content" id="modalContent">
+    <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>
+  </div>
+</div>
+
+<script>
+  // ============================================================
+  //  DATA
+  // ============================================================
+  const allLocations = ['Lusaka','Kitwe','Ndola','Livingstone','Solwezi','Chipata','Mongu','Kasama','Choma','Mansa','Chingola','Luanshya','Mufulira','Kabwe','Kapiri Mposhi','Mazabuka','Kafue','Zimba','Nyimba','Sinda','Mumbwa','Kaoma','Mpika'];
+  
+  let branches = [
+    { id: 'BR001', name: 'Lusaka Downtown', location: 'Lusaka', manager: 'Mary Banda', staff: 8 },
+    { id: 'BR002', name: 'Kitwe Branch', location: 'Kitwe', manager: 'Peter Chanda', staff: 5 },
+    { id: 'BR003', name: 'Livingstone Station', location: 'Livingstone', manager: 'Grace Phiri', staff: 4 },
+  ];
+
+  let branchBookings = {
+    'BR001': [
+      { id: 'BK001', name: 'John Mukuka', age: 30, route: 'Lusaka → Livingstone', pnr: 'PNR7X9K2L', date: '2026-07-03', attended: false },
+      { id: 'BK002', name: 'Sarah Banda', age: 25, route: 'Lusaka → Kitwe', pnr: 'PNR3M8N5P', date: '2026-07-03', attended: false },
+      { id: 'BK003', name: 'Michael Chibwe', age: 40, route: 'Livingstone → Lusaka', pnr: 'PNR2K4L6M', date: '2026-07-02', attended: true },
+      { id: 'BK004', name: 'Grace Phiri', age: 28, route: 'Lusaka → Livingstone', pnr: 'PNR5T7R9Q', date: '2026-07-02', attended: false },
+    ],
+    'BR002': [
+      { id: 'BK005', name: 'David Mwansa', age: 35, route: 'Kitwe → Lusaka', pnr: 'PNR1A2B3C', date: '2026-07-03', attended: false },
+      { id: 'BK006', name: 'Esther Chanda', age: 22, route: 'Kitwe → Ndola', pnr: 'PNR4D5E6F', date: '2026-07-01', attended: false },
+    ],
+    'BR003': [
+      { id: 'BK007', name: 'Peter Zulu', age: 45, route: 'Livingstone → Lusaka', pnr: 'PNR7G8H9I', date: '2026-07-03', attended: false },
+      { id: 'BK008', name: 'Mary Phiri', age: 29, route: 'Livingstone → Choma', pnr: 'PNR0J1K2L', date: '2026-07-02', attended: true },
+    ],
+  };
+
+  let branchBuses = [];
+  let branchRoutes = [];
+
+  let selectedBranchId = null;
+  let currentRole = 'passenger';
+  let selectedBus = null;
+  let selectedSeatsBooking = [];
+  let currentPNR = '';
+
+  // ============================================================
+  //  SIDEBAR
+  // ============================================================
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('active');
+    renderSidebar();
+  }
+
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+  }
+
+  // ============================================================
+  //  RENDER SIDEBAR
+  // ============================================================
+  function renderSidebar() {
+    const container = document.getElementById('sidebarContent');
+    let html = '';
+
+    if (currentRole === 'passenger') {
+      html = `
+        <ul class="sidebar-menu">
+          <li><a class="active" onclick="switchPage('passenger', this); closeSidebar();"><i class="fas fa-home"></i> Home</a></li>
+          <li class="divider"></li>
+          <li class="menu-label">Login as Role</li>
+          <li><a onclick="loginRole('superadmin', this); closeSidebar();"><i class="fas fa-user-shield"></i> Super Admin</a></li>
+          <li><a onclick="loginRole('company', this); closeSidebar();"><i class="fas fa-building"></i> Company Admin</a></li>
+          <li><a onclick="loginRole('branch', this); closeSidebar();"><i class="fas fa-store"></i> Branch Manager</a></li>
+          <li class="divider"></li>
+          <li><a onclick="switchPage('register', this); closeSidebar();"><i class="fas fa-pen"></i> Register Company</a></li>
+        </ul>
+      `;
+    } else if (currentRole === 'superadmin') {
+      html = `
+        <button class="sidebar-back" onclick="logoutRole(); closeSidebar();"><i class="fas fa-arrow-left"></i> Back to Main</button>
+        <ul class="sidebar-menu">
+          <li><a class="active" onclick="switchPage('superadmin', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
+          <li><a onclick="switchPage('pending', this); closeSidebar();"><i class="fas fa-clock"></i> Pending Approvals</a></li>
+          <li><a onclick="switchPage('settings-super', this); closeSidebar();"><i class="fas fa-cog"></i> Platform Settings</a></li>
+          <li class="divider"></li>
+          <li><a onclick="logoutRole(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      `;
+    } else if (currentRole === 'company') {
+      html = `
+        <button class="sidebar-back" onclick="logoutRole(); closeSidebar();"><i class="fas fa-arrow-left"></i> Back to Main</button>
+        <ul class="sidebar-menu">
+          <li><a class="active" onclick="switchPage('company', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
+          <li><a onclick="switchPage('branchview', this); closeSidebar();"><i class="fas fa-store"></i> Branch View</a></li>
+          <li><a onclick="switchPage('management-company', this); closeSidebar();"><i class="fas fa-cogs"></i> Management</a></li>
+          <li><a onclick="switchPage('settings-company', this); closeSidebar();"><i class="fas fa-cog"></i> Settings</a></li>
+          <li class="divider"></li>
+          <li><a onclick="logoutRole(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      `;
+    } else if (currentRole === 'branch') {
+      html = `
+        <button class="sidebar-back" onclick="logoutRole(); closeSidebar();"><i class="fas fa-arrow-left"></i> Back to Main</button>
+        <ul class="sidebar-menu">
+          <li><a class="active" onclick="switchPage('branch', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
+          <li><a onclick="switchPage('branch-management', this); closeSidebar();"><i class="fas fa-cogs"></i> Management</a></li>
+          <li><a onclick="switchPage('branch-viewbranch', this); closeSidebar();"><i class="fas fa-store"></i> View Branch</a></li>
+          <li><a onclick="switchPage('settings-branch', this); closeSidebar();"><i class="fas fa-cog"></i> Settings</a></li>
+          <li class="divider"></li>
+          <li><a onclick="logoutRole(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      `;
+    }
+
+    container.innerHTML = html;
+    updateBranchDropdowns();
+    updateBusDropdowns();
+  }
+
+  // ============================================================
+  //  ROLE LOGIN / LOGOUT
+  // ============================================================
+  function loginRole(role, btn) {
+    currentRole = role;
+    const names = {
+      'superadmin': 'Super Admin',
+      'company': 'Company Admin',
+      'branch': 'Branch Manager'
+    };
+    document.getElementById('userName').textContent = names[role];
+    document.getElementById('userRole').textContent = role.charAt(0).toUpperCase() + role.slice(1);
+    document.getElementById('userAvatar').textContent = role === 'superadmin' ? 'SA' : role === 'company' ? 'CA' : 'BM';
+    switchPage(role === 'superadmin' ? 'superadmin' : role, btn);
+    renderSidebar();
+    showToast('✅ Logged in as ' + names[role]);
+  }
+
+  function logoutRole() {
+    currentRole = 'passenger';
+    document.getElementById('userName').textContent = 'Guest';
+    document.getElementById('userRole').textContent = 'Passenger';
+    document.getElementById('userAvatar').textContent = 'GU';
+    switchPage('passenger', document.querySelector('#sidebarContent a'));
+    renderSidebar();
+    showToast('🔓 Logged out. Returned to Home.');
+  }
+
+  // ============================================================
+  //  PAGE SWITCHING
+  // ============================================================
+  function switchPage(pageId, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) target.classList.add('active');
+
+    document.querySelectorAll('#sidebarContent .sidebar-menu a').forEach(l => l.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    if (pageId === 'passenger') {
+      document.getElementById('searchPlaceholder').style.display = 'block';
+      document.getElementById('resultsContainer').style.display = 'none';
+      document.getElementById('bookingBar').style.display = 'flex';
+    } else {
+      document.getElementById('bookingBar').style.display = 'none';
+    }
+
+    if (pageId === 'branchview') renderBranches();
+    if (pageId === 'branch') renderBranchManagerBookings();
+    if (pageId === 'branch-viewbranch') renderBranchViewTable();
+    if (pageId === 'management-company') updateBranchDropdowns();
+    if (pageId === 'branch-management') { updateBusDropdowns(); renderBranchBusList(); }
+  }
+
+  // ============================================================
+  //  TOAST & MODAL
+  // ============================================================
+  function showToast(msg) {
+    let t = document.querySelector('.toast');
+    if (t) t.remove();
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  function openModal(html) {
+    document.getElementById('modalContent').innerHTML = html;
+    document.getElementById('modalOverlay').classList.add('active');
+  }
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+  }
+
+  // ============================================================
+  //  COMPANY ADMIN: BRANCH VIEW
+  // ============================================================
+  function renderBranches() {
+    const container = document.getElementById('branchListContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    branches.forEach(branch => {
+      const card = document.createElement('div');
+      card.className = 'branch-card';
+      card.innerHTML = `
+        <div class="branch-name">🏪 ${branch.name}</div>
+        <div class="branch-detail">Manager: ${branch.manager} · Staff: ${branch.staff}</div>
+        <div class="branch-detail">📍 Location: ${branch.location}</div>
+        <div class="branch-actions">
+          <button class="action-btn primary" onclick="selectBranch('${branch.id}')"><i class="fas fa-eye"></i> View Bookings</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function searchBranch() {
+    const query = document.getElementById('branchSearchInput').value.trim().toLowerCase();
+    const cards = document.querySelectorAll('.branch-card');
+    let found = false;
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      if (query === '' || text.includes(query)) {
+        card.style.display = 'block';
+        found = true;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    if (query !== '' && !found) showToast('🔍 No branches found matching "' + query + '"');
+  }
+
+  function selectBranch(branchId) {
+    selectedBranchId = branchId;
+    const branch = branches.find(b => b.id === branchId);
+    if (!branch) return;
+
+    document.getElementById('selectedBranchName').innerHTML = 'Bookings for <span style="color:#6c5ce7;">' + branch.name + '</span>';
+    document.getElementById('bookingsContainer').style.display = 'block';
+    
+    const bookings = branchBookings[branchId] || [];
+    renderCompanyBookingsTable(bookings);
+  }
+
+  function renderCompanyBookingsTable(bookings) {
+    const tbody = document.getElementById('bookingsTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    if (bookings.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">No bookings found for this branch.</td></tr>';
+      return;
+    }
+
+    const sorted = [...bookings].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    let currentDate = '';
+    let html = '';
+    sorted.forEach(booking => {
+      if (booking.date !== currentDate) {
+        currentDate = booking.date;
+        html += `<tr class="date-divider"><td colspan="6">📅 ${new Date(currentDate).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}</td></tr>`;
+      }
+      const status = booking.attended ? 
+        '<span class="status-present"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Present</span>' : 
+        '<span class="status-absent"><i class="fas fa-times-circle" style="color:#f06060;"></i> Absent</span>';
+      html += `
+        <tr data-id="${booking.id}">
+          <td>${new Date(booking.date).toLocaleDateString('en-GB', { day:'numeric', month:'short' })}</td>
+          <td>${booking.name}</td>
+          <td>${booking.age}</td>
+          <td>${booking.route}</td>
+          <td><strong>${booking.pnr}</strong></td>
+          <td>
+            ${status}
+            ${!booking.attended ? `<button class="present-btn" onclick="markPresentCompany('${booking.id}')"><i class="fas fa-check"></i> Present</button>` : ''}
+          </td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+  }
+
+  function markPresentCompany(bookingId) {
+    for (const branchId in branchBookings) {
+      const bookings = branchBookings[branchId];
+      const booking = bookings.find(b => b.id === bookingId);
+      if (booking) {
+        booking.attended = true;
+        showToast('✅ ' + booking.name + ' marked as Present!');
+        if (selectedBranchId) {
+          const updated = branchBookings[selectedBranchId] || [];
+          renderCompanyBookingsTable(updated);
+        }
+        return;
+      }
+    }
+    showToast('⚠️ Booking not found.');
+  }
+
+  // ============================================================
+  //  COMPANY ADMIN: MANAGEMENT
+  // ============================================================
+  function updateBranchDropdowns() {
+    const select = document.getElementById('companyDeleteBranchSelect');
+    if (!select) return;
+    select.innerHTML = '<option value="">Select branch...</option>';
+    branches.forEach(b => {
+      select.innerHTML += `<option value="${b.id}">${b.name} (${b.location})</option>`;
+    });
+  }
+
+  function addBranchCompany() {
+    const name = document.getElementById('companyBranchName').value.trim();
+    const location = document.getElementById('companyBranchLocation').value.trim();
+    const manager = document.getElementById('companyBranchManager').value.trim();
+    const staff = parseInt(document.getElementById('companyBranchStaff').value.trim()) || 0;
+
+    if (!name || !location || !manager) {
+      showToast('⚠️ Please fill in all required fields.');
+      return;
+    }
+
+    const newBranch = {
+      id: 'BR' + String(branches.length + 1).padStart(3, '0'),
+      name: name,
+      location: location,
+      manager: manager,
+      staff: staff
+    };
+    branches.push(newBranch);
+    branchBookings[newBranch.id] = [];
+
+    showToast('✅ Branch "' + name + '" added successfully!');
+    document.getElementById('companyBranchName').value = '';
+    document.getElementById('companyBranchLocation').value = '';
+    document.getElementById('companyBranchManager').value = '';
+    document.getElementById('companyBranchStaff').value = '';
+    updateBranchDropdowns();
+    renderBranches();
+  }
+
+  function deleteBranchCompany() {
+    const select = document.getElementById('companyDeleteBranchSelect');
+    const branchId = select.value;
+    if (!branchId) { showToast('⚠️ Please select a branch to delete.'); return; }
+
+    const branch = branches.find(b => b.id === branchId);
+    if (!branch) return;
+
+    if (confirm('Are you sure you want to delete "' + branch.name + '"?')) {
+      branches = branches.filter(b => b.id !== branchId);
+      delete branchBookings[branchId];
+      showToast('🗑️ Branch "' + branch.name + '" deleted.');
+      updateBranchDropdowns();
+      renderBranches();
+    }
+  }
+
+  // ============================================================
+  //  BRANCH MANAGER: OVERVIEW
+  // ============================================================
+  function renderBranchManagerBookings() {
+    const container = document.getElementById('branchManagerBookings');
+    if (!container) return;
+
+    let allBookings = [];
+    for (const branchId in branchBookings) {
+      allBookings = allBookings.concat(branchBookings[branchId]);
+    }
+
+    if (allBookings.length === 0) {
+      container.innerHTML = '<p style="color:#b6bdf0;text-align:center;padding:1rem;">No bookings found.</p>';
+      return;
+    }
+
+    const sorted = [...allBookings].sort((a, b) => new Date(b.date) - new Date(a.date));
+    let html = `<div class="table-wrapper"><table>
+      <thead><tr><th>Date</th><th>Name</th><th>Age</th><th>Route</th><th>PNR</th><th>Status</th></tr></thead><tbody>`;
+    let currentDate = '';
+    sorted.forEach(booking => {
+      if (booking.date !== currentDate) {
+        currentDate = booking.date;
+        html += `<tr class="date-divider"><td colspan="6">📅 ${new Date(currentDate).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}</td></tr>`;
+      }
+      const status = booking.attended ? 
+        '<span class="status-present"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Present</span>' : 
+        '<span class="status-absent"><i class="fas fa-times-circle" style="color:#f06060;"></i> Absent</span>';
+      html += `
+        <tr>
+          <td>${new Date(booking.date).toLocaleDateString('en-GB', { day:'numeric', month:'short' })}</td>
+          <td>${booking.name}</td>
+          <td>${booking.age}</td>
+          <td>${booking.route}</td>
+          <td><strong>${booking.pnr}</strong></td>
+          <td>${status}</td>
+        </tr>
+      `;
+    });
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+  }
+
+  // ============================================================
+  //  BRANCH MANAGER: VIEW BRANCH
+  // ============================================================
+  function renderBranchViewTable() {
+    const tbody = document.getElementById('branchViewTableBody');
+    if (!tbody) return;
+
+    let allBookings = [];
+    for (const branchId in branchBookings) {
+      allBookings = allBookings.concat(branchBookings[branchId]);
+    }
+
+    if (allBookings.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">No bookings found.</td></tr>';
+      return;
+    }
+
+    const sorted = [...allBookings].sort((a, b) => new Date(b.date) - new Date(a.date));
+    let html = '';
+    let currentDate = '';
+    sorted.forEach(booking => {
+      if (booking.date !== currentDate) {
+        currentDate = booking.date;
+        html += `<tr class="date-divider"><td colspan="6">📅 ${new Date(currentDate).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}</td></tr>`;
+      }
+      const status = booking.attended ? 
+        '<span class="status-present"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Present</span>' : 
+        '<span class="status-absent"><i class="fas fa-times-circle" style="color:#f06060;"></i> Absent</span>';
+      html += `
+        <tr data-id="${booking.id}">
+          <td>${new Date(booking.date).toLocaleDateString('en-GB', { day:'numeric', month:'short' })}</td>
+          <td>${booking.name}</td>
+          <td>${booking.age}</td>
+          <td>${booking.route}</td>
+          <td><strong>${booking.pnr}</strong></td>
+          <td>
+            ${status}
+            ${!booking.attended ? `<button class="present-btn" onclick="markPresentBranch('${booking.id}')"><i class="fas fa-check"></i> Present</button>` : ''}
+          </td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+  }
+
+  function markPresentBranch(bookingId) {
+    for (const branchId in branchBookings) {
+      const bookings = branchBookings[branchId];
+      const booking = bookings.find(b => b.id === bookingId);
+      if (booking) {
+        booking.attended = true;
+        showToast('✅ ' + booking.name + ' marked as Present!');
+        renderBranchViewTable();
+        renderBranchManagerBookings();
+        return;
+      }
+    }
+    showToast('⚠️ Booking not found.');
+  }
+
+  function filterBranchView() {
+    const query = document.getElementById('branchViewSearchInput').value.trim().toLowerCase();
+    const rows = document.querySelectorAll('#branchViewTableBody tr');
+    rows.forEach(row => {
+      if (row.classList.contains('date-divider')) {
+        row.style.display = '';
+        return;
+      }
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(query) ? '' : 'none';
+    });
+  }
+
+  function clearBranchViewSearch() {
+    document.getElementById('branchViewSearchInput').value = '';
+    filterBranchView();
+  }
+
+  // ============================================================
+  //  BRANCH MANAGER: MANAGEMENT
+  // ============================================================
+  function updateBusDropdowns() {
+    const select = document.getElementById('branchRouteBus');
+    if (!select) return;
+    select.innerHTML = '<option value="">Select bus...</option>';
+    branchBuses.forEach(b => {
+      select.innerHTML += `<option value="${b.id}">${b.name} (${b.capacity} seats)</option>`;
+    });
+  }
+
+  function addBusBranch() {
+    const name = document.getElementById('branchBusName').value.trim();
+    const capacity = parseInt(document.getElementById('branchBusCapacity').value.trim()) || 0;
+    const type = document.getElementById('branchBusType').value;
+
+    if (!name || capacity < 1) {
+      showToast('⚠️ Please enter bus name and capacity.');
+      return;
+    }
+
+    const newBus = {
+      id: 'BUS' + String(branchBuses.length + 1).padStart(3, '0'),
+      name: name,
+      capacity: capacity,
+      type: type
+    };
+    branchBuses.push(newBus);
+    showToast('✅ Bus "' + name + '" added!');
+    document.getElementById('branchBusName').value = '';
+    document.getElementById('branchBusCapacity').value = '';
+    updateBusDropdowns();
+    renderBranchBusList();
+  }
+
+  function addRouteBranch() {
+    const busId = document.getElementById('branchRouteBus').value;
+    const from = document.getElementById('branchRouteFrom').value.trim();
+    const to = document.getElementById('branchRouteTo').value.trim();
+    const price = parseInt(document.getElementById('branchRoutePrice').value.trim()) || 0;
+    const departure = document.getElementById('branchRouteDeparture').value;
+    const arrival = document.getElementById('branchRouteArrival').value;
+
+    if (!busId || !from || !to || !price || !departure || !arrival) {
+      showToast('⚠️ Please fill in all fields.');
+      return;
+    }
+
+    const bus = branchBuses.find(b => b.id === busId);
+    if (!bus) { showToast('⚠️ Please select a bus.'); return; }
+
+    const newRoute = {
+      id: 'RTE' + String(branchRoutes.length + 1).padStart(3, '0'),
+      busId: busId,
+      busName: bus.name,
+      from: from,
+      to: to,
+      price: price,
+      departure: departure,
+      arrival: arrival
+    };
+    branchRoutes.push(newRoute);
+    showToast('✅ Route added: ' + from + ' → ' + to);
+    document.getElementById('branchRouteFrom').value = '';
+    document.getElementById('branchRouteTo').value = '';
+    document.getElementById('branchRoutePrice').value = '';
+    document.getElementById('branchRouteDeparture').value = '';
+    document.getElementById('branchRouteArrival').value = '';
+    renderBranchBusList();
+  }
+
+  function renderBranchBusList() {
+    const container = document.getElementById('branchBusList');
+    if (!container) return;
+
+    if (branchBuses.length === 0 && branchRoutes.length === 0) {
+      container.innerHTML = '<p style="color:#5a5f8a;font-size:0.8rem;">No buses or routes added yet.</p>';
+      return;
+    }
+
+    let html = '';
+    branchBuses.forEach(bus => {
+      const routes = branchRoutes.filter(r => r.busId === bus.id);
+      html += `
+        <div class="list-item">
+          <div class="item-left">
+            <div class="title">🚍 ${bus.name}</div>
+            <div class="subtitle">${bus.capacity} seats · ${bus.type}</div>
+            ${routes.length > 0 ? routes.map(r => 
+              `<div class="subtitle" style="color:#8b92e8;">  └ ${r.from} → ${r.to} · ${r.departure} → ${r.arrival} · K ${r.price}</div>`
+            ).join('') : '<div class="subtitle" style="color:#5a5f8a;">No routes added</div>'}
+          </div>
+          <div class="item-right">
+            <button class="action-btn info" onclick="showToast('✏️ Edit bus ${bus.name}')"><i class="fas fa-edit"></i></button>
+            <button class="action-btn danger" onclick="deleteBus('${bus.id}')"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
+  function deleteBus(busId) {
+    if (confirm('Delete this bus and all its routes?')) {
+      branchBuses = branchBuses.filter(b => b.id !== busId);
+      branchRoutes = branchRoutes.filter(r => r.busId !== busId);
+      showToast('🗑️ Bus deleted.');
+      updateBusDropdowns();
+      renderBranchBusList();
+    }
+  }
+
+  // ============================================================
+  //  SETTINGS FUNCTIONS
+  // ============================================================
+  function changeSuperPassword() {
+    const current = document.getElementById('superCurrentPwd').value.trim();
+    const newPwd = document.getElementById('superNewPwd').value.trim();
+    const confirm = document.getElementById('superConfirmPwd').value.trim();
+    if (!current || !newPwd || !confirm) { showToast('⚠️ Please fill in all fields.'); return; }
+    if (newPwd !== confirm) { showToast('⚠️ Passwords do not match.'); return; }
+    if (newPwd.length < 6) { showToast('⚠️ Password must be at least 6 characters.'); return; }
+    showToast('✅ Password updated successfully!');
+    document.getElementById('superCurrentPwd').value = '';
+    document.getElementById('superNewPwd').value = '';
+    document.getElementById('superConfirmPwd').value = '';
+  }
+
+  function updateSuperCompany() {
+    const name = document.getElementById('superCompanyName').value.trim();
+    const license = document.getElementById('superLicense').value.trim();
+    const email = document.getElementById('superContactEmail').value.trim();
+    const phone = document.getElementById('superPhone').value.trim();
+    if (!name || !license || !email || !phone) { showToast('⚠️ Please fill in all fields.'); return; }
+    showToast('✅ Company details updated successfully!');
+  }
+
+  function changeCompanyPassword() {
+    const current = document.getElementById('companyCurrentPwd').value.trim();
+    const newPwd = document.getElementById('companyNewPwd').value.trim();
+    const confirm = document.getElementById('companyConfirmPwd').value.trim();
+    if (!current || !newPwd || !confirm) { showToast('⚠️ Please fill in all fields.'); return; }
+    if (newPwd !== confirm) { showToast('⚠️ Passwords do not match.'); return; }
+    if (newPwd.length < 6) { showToast('⚠️ Password must be at least 6 characters.'); return; }
+    showToast('✅ Password updated successfully!');
+    document.getElementById('companyCurrentPwd').value = '';
+    document.getElementById('companyNewPwd').value = '';
+    document.getElementById('companyConfirmPwd').value = '';
+  }
+
+  function changeBranchPassword() {
+    const current = document.getElementById('branchCurrentPwd').value.trim();
+    const newPwd = document.getElementById('branchNewPwd').value.trim();
+    const confirm = document.getElementById('branchConfirmPwd').value.trim();
+    if (!current || !newPwd || !confirm) { showToast('⚠️ Please fill in all fields.'); return; }
+    if (newPwd !== confirm) { showToast('⚠️ Passwords do not match.'); return; }
+    if (newPwd.length < 6) { showToast('⚠️ Password must be at least 6 characters.'); return; }
+    showToast('✅ Password updated successfully!');
+    document.getElementById('branchCurrentPwd').value = '';
+    document.getElementById('branchNewPwd').value = '';
+    document.getElementById('branchConfirmPwd').value = '';
+  }
+
+  // ============================================================
+  //  TABLE SEARCH (Company Admin)
+  // ============================================================
+  function filterTable() {
+    const query = document.getElementById('tableSearchInput').value.trim().toLowerCase();
+    const rows = document.querySelectorAll('#bookingsTableBody tr');
+    rows.forEach(row => {
+      if (row.classList.contains('date-divider')) {
+        row.style.display = '';
+        return;
+      }
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(query) ? '' : 'none';
+    });
+  }
+
+  function clearTableSearch() {
+    document.getElementById('tableSearchInput').value = '';
+    filterTable();
+  }
+
+  // ============================================================
+  //  PASSENGER SEARCH
+  // ============================================================
+  const fromInput = document.getElementById('fromInput');
+  const toInput = document.getElementById('toInput');
+  const dateInput = document.getElementById('dateInput');
+  const fromSuggestions = document.getElementById('fromSuggestions');
+  const toSuggestions = document.getElementById('toSuggestions');
+  const searchBtn = document.getElementById('searchBtn');
+  const placeholder = document.getElementById('searchPlaceholder');
+  const resultsContainer = document.getElementById('resultsContainer');
+  const busList = document.getElementById('busList');
+  const fromDisplay = document.getElementById('fromDisplay');
+  const toDisplay = document.getElementById('toDisplay');
+  const busCount = document.getElementById('busCount');
+  const selectedRoute = document.getElementById('selectedRoute');
+  const selectedPrice = document.getElementById('selectedPrice');
+  const viewBookingBtn = document.getElementById('viewBookingBtn');
+
+  dateInput.value = new Date().toISOString().split('T')[0];
+
+  function getSuggestions(input, list) {
+    if (!input || input.length < 1) return [];
+    const term = input.toLowerCase().trim();
+    const results = [];
+    list.forEach(item => {
+      const itemLower = item.toLowerCase();
+      if (itemLower === term) results.push({ name: item, match: 'exact' });
+      else if (itemLower.startsWith(term)) results.push({ name: item, match: 'starts' });
+      else if (itemLower.includes(term)) results.push({ name: item, match: 'contains' });
+      else if (isCloseMatch(itemLower, term)) results.push({ name: item, match: 'similar' });
+    });
+    const order = { exact: 0, starts: 1, contains: 2, similar: 3 };
+    results.sort((a, b) => order[a.match] - order[b.match]);
+    return results.map(r => r.name);
+  }
+
+  function isCloseMatch(word1, word2) {
+    if (Math.abs(word1.length - word2.length) > 2) return false;
+    let diff = 0;
+    for (let i = 0; i < Math.min(word1.length, word2.length); i++) {
+      if (word1[i] !== word2[i]) diff++;
+    }
+    diff += Math.abs(word1.length - word2.length);
+    return diff <= 2;
+  }
+
+  function showSuggestions(input, suggestionsBox, list) {
+    const val = input.value.trim();
+    if (!val || val.length < 1) { suggestionsBox.style.display = 'none'; return; }
+    const suggestions = getSuggestions(val, list);
+    if (suggestions.length === 0) { suggestionsBox.style.display = 'none'; return; }
+    suggestionsBox.innerHTML = '';
+    suggestions.forEach(name => {
+      const div = document.createElement('div');
+      div.className = 'suggestion-item';
+      div.textContent = name;
+      div.addEventListener('click', () => {
+        input.value = name;
+        suggestionsBox.style.display = 'none';
+        if (fromInput.value.trim() && toInput.value.trim() && dateInput.value) performSearch();
+      });
+      suggestionsBox.appendChild(div);
+    });
+    suggestionsBox.style.display = 'block';
+  }
+
+  fromInput.addEventListener('input', () => showSuggestions(fromInput, fromSuggestions, allLocations));
+  toInput.addEventListener('input', () => showSuggestions(toInput, toSuggestions, allLocations));
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-item')) {
+      fromSuggestions.style.display = 'none';
+      toSuggestions.style.display = 'none';
+    }
+  });
+
+  function performSearch() {
+    const from = fromInput.value.trim();
+    const to = toInput.value.trim();
+    const date = dateInput.value;
+    if (!from || !to) { alert('Please enter both From and To locations.'); return; }
+    if (!date) { alert('Please select a travel date.'); return; }
+
+    const matchedRoutes = branchRoutes.filter(r => 
+      r.from.toLowerCase() === from.toLowerCase() && 
+      r.to.toLowerCase() === to.toLowerCase()
+    );
+
+    if (matchedRoutes.length === 0) {
+      placeholder.style.display = 'none';
+      resultsContainer.style.display = 'block';
+      fromDisplay.textContent = from;
+      toDisplay.textContent = to;
+      busList.innerHTML = `
+        <div style="text-align:center;padding:1.5rem;color:#b6bdf0;">
+          <i class="fas fa-bus" style="font-size:2.5rem;color:#2d325a;display:block;margin-bottom:0.8rem;"></i>
+          <h3 style="color:#edeef2;">No buses found</h3>
+          <p>No buses available from ${from} to ${to}.</p>
+        </div>
+      `;
+      busCount.textContent = '0 buses found';
+      return;
+    }
+
+    placeholder.style.display = 'none';
+    resultsContainer.style.display = 'block';
+    fromDisplay.textContent = from;
+    toDisplay.textContent = to;
+
+    let html = '';
+    matchedRoutes.forEach((r, i) => {
+      html += `
+        <div class="bus-card" data-id="route-${i}">
+          <div class="bus-info">
+            <div class="company">${r.busName}</div>
+            <div class="details"><i class="fas fa-clock"></i> Departs ${r.departure} · Arrives ${r.arrival}</div>
+            <div class="seats"><i class="fas fa-chair"></i> 40 seats available</div>
+          </div>
+          <div class="bus-right">
+            <div class="price">K ${r.price}</div>
+            <div class="actions">
+              <button class="eye-btn" onclick="showRouteDetails('${r.busName}', '${r.from}', '${r.to}', '${r.departure}', '${r.arrival}', '${r.price}')"><i class="fas fa-eye"></i></button>
+              <button class="select-btn" onclick="bookRoute('${r.busName}', '${r.from}', '${r.to}', '${r.price}')">Select Seat</button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    busList.innerHTML = html;
+    busCount.textContent = matchedRoutes.length + ' bus' + (matchedRoutes.length > 1 ? 'es' : '') + ' found';
+  }
+
+  function showRouteDetails(busName, from, to, departure, arrival, price) {
+    const html = `
+      <h2><i class="fas fa-bus"></i> ${busName}</h2>
+      <div class="sub">${from} → ${to}</div>
+      <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Departure</span><span style="color:#edeef2;font-weight:500;">${departure}</span></div>
+      <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Arrival</span><span style="color:#edeef2;font-weight:500;">${arrival}</span></div>
+      <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Price</span><span style="color:#f0d060;font-weight:700;">K ${price}</span></div>
+      <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.8rem;"><span style="color:#b6bdf0;">Seats Available</span><span style="color:#4ade80;font-weight:500;">40</span></div>
+      <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>
+    `;
+    openModal(html);
+  }
+
+  function bookRoute(busName, from, to, price) {
+    selectedBus = { busName, from, to, price };
+    selectedSeatsBooking = [];
+    renderSeatSelection();
+  }
+
+  function renderSeatSelection() {
+    let html = '<h2><i class="fas fa-chair"></i> Select Your Seats</h2>' +
+      '<div class="sub">' + selectedBus.busName + ' · ' + selectedBus.from + ' → ' + selectedBus.to + '</div>' +
+      '<div class="seat-legend">' +
+        '<span><span class="legend-box avail"></span> Available</span>' +
+        '<span><span class="legend-box sel"></span> Selected</span>' +
+        '<span><span class="legend-box book"></span> Booked</span>' +
+      '</div>' +
+      '<div class="seat-grid" id="seatGrid">';
+
+    const totalSeats = 40;
+    const bookedSeats = [3, 8, 14, 19];
+    for (let i = 1; i <= totalSeats; i++) {
+      const isBooked = bookedSeats.includes(i);
+      const isSelected = selectedSeatsBooking.includes(i);
+      let cls = 'seat';
+      if (isBooked) cls += ' booked';
+      else if (isSelected) cls += ' selected';
+      else cls += ' available';
+      const seatText = isBooked ? '✕' : i;
+      const onclick = isBooked ? '' : ' onclick="toggleSeat(' + i + ')"';
+      html += '<div class="' + cls + '" data-seat="' + i + '"' + onclick + '>' + seatText + '</div>';
+    }
+
+    html += '</div>' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin:0.4rem 0;">' +
+        '<span style="color:#8b92e8;font-size:0.8rem;" id="seatCount">0 seats selected</span>' +
+        '<span style="font-weight:700;font-size:1rem;color:#edeef2;" id="seatTotal">K 0</span>' +
+      '</div>' +
+      '<button class="confirm-btn" id="confirmSeatsBtn" disabled>Continue →</button>' +
+      '<button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>';
+
+    openModal(html);
+    updateSeatSummary();
+
+    document.getElementById('confirmSeatsBtn').addEventListener('click', function() {
+      if (selectedSeatsBooking.length > 0) showPassengerForm();
+    });
+  }
+
+  window.toggleSeat = function(seatNumber) {
+    const idx = selectedSeatsBooking.indexOf(seatNumber);
+    if (idx > -1) { selectedSeatsBooking.splice(idx, 1); }
+    else {
+      if (selectedSeatsBooking.length >= 5) { alert('Maximum 5 seats.'); return; }
+      selectedSeatsBooking.push(seatNumber);
+    }
+    renderSeatSelection();
+  };
+
+  function updateSeatSummary() {
+    const count = selectedSeatsBooking.length;
+    const el = document.getElementById('seatCount');
+    const totalEl = document.getElementById('seatTotal');
+    if (el) el.textContent = count + ' seat' + (count > 1 ? 's' : '') + ' selected';
+    if (totalEl) totalEl.textContent = 'K ' + (count * parseInt(selectedBus.price));
+    const btn = document.getElementById('confirmSeatsBtn');
+    if (btn) btn.disabled = count === 0;
+  }
+
+  function showPassengerForm() {
+    const total = selectedSeatsBooking.length * parseInt(selectedBus.price);
+    const html = '<h2><i class="fas fa-user"></i> Passenger Details</h2>' +
+      '<div class="sub">Seats: ' + selectedSeatsBooking.join(', ') + ' · Total: K ' + total + '</div>' +
+      '<div class="passenger-form">' +
+        '<div class="form-row">' +
+          '<div class="form-group"><label>Full Name *</label><input type="text" id="paxName" placeholder="e.g., John Mukuka"></div>' +
+          '<div class="form-group"><label>Phone Number *</label><input type="tel" id="paxPhone" placeholder="e.g., 0977123456"></div>' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="form-group"><label>Email Address</label><input type="email" id="paxEmail" placeholder="e.g., john@email.com"></div>' +
+          '<div class="form-group"><label>ID Number</label><input type="text" id="paxId" placeholder="e.g., 123456/78/1"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="payment-section active" style="display:block;">' +
+        '<h3 style="font-size:0.9rem;margin-bottom:0.4rem;color:#edeef2;">Payment Method</h3>' +
+        '<div class="payment-methods">' +
+          '<button class="selected" data-method="mobile-money"><i class="fas fa-mobile-alt"></i> Mobile Money</button>' +
+          '<button data-method="cash"><i class="fas fa-money-bill-wave"></i> Cash</button>' +
+          '<button data-method="card"><i class="fas fa-credit-card"></i> Card</button>' +
+        '</div>' +
+        '<div style="background:#0a0c18;border-radius:0.8rem;padding:0.6rem;border:1px solid #2a2e50;margin:0.4rem 0;">' +
+          '<div style="display:flex;justify-content:space-between;font-size:0.8rem;">' +
+            '<span style="color:#b6bdf0;">Total Amount</span>' +
+            '<span style="font-weight:700;color:#edeef2;">K ' + total + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<button class="confirm-btn" id="payNowBtn"><i class="fas fa-lock"></i> Pay Now</button>' +
+      '</div>' +
+      '<button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Cancel</button>';
+
+    openModal(html);
+
+    document.querySelectorAll('.payment-methods button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.payment-methods button').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+
+    document.getElementById('payNowBtn').addEventListener('click', function() {
+      const name = document.getElementById('paxName').value.trim();
+      const phone = document.getElementById('paxPhone').value.trim();
+      if (!name) { alert('Please enter passenger name.'); return; }
+      if (!phone || phone.length < 8) { alert('Please enter a valid phone number.'); return; }
+
+      const selectedMethod = document.querySelector('.payment-methods button.selected');
+      const method = selectedMethod ? selectedMethod.dataset.method : 'mobile-money';
+      currentPNR = 'PNR' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+      const firstBranchId = branches.length > 0 ? branches[0].id : 'BR001';
+      if (!branchBookings[firstBranchId]) branchBookings[firstBranchId] = [];
+      branchBookings[firstBranchId].push({
+        id: 'BK' + String(Math.floor(Math.random() * 1000)).padStart(3, '0'),
+        name: name,
+        age: 25,
+        route: selectedBus.from + ' → ' + selectedBus.to,
+        pnr: currentPNR,
+        date: new Date().toISOString().split('T')[0],
+        attended: false
+      });
+
+      alert('✅ Booking Confirmed!\n\nPNR: ' + currentPNR + '\nBus: ' + selectedBus.busName + '\nRoute: ' + selectedBus.from + ' → ' + selectedBus.to + '\nSeats: ' + selectedSeatsBooking.join(', ') + '\nPassenger: ' + name + '\nPhone: ' + phone + '\nPayment: ' + method.replace('-', ' ').toUpperCase() + '\nTotal: K ' + total);
+
+      closeModal();
+      selectedRoute.textContent = selectedBus.busName + ' · Seat ' + selectedSeatsBooking.join(', ');
+      selectedPrice.textContent = 'K ' + total;
+      viewBookingBtn.disabled = false;
+    });
+  }
+
+  viewBookingBtn.addEventListener('click', function() {
+    if (!selectedBus) return;
+    alert('📋 Booking Summary\n\nBus: ' + selectedBus.busName + '\nRoute: ' + selectedBus.from + ' → ' + selectedBus.to + '\nSeats: ' + selectedSeatsBooking.join(', ') + '\nPNR: ' + currentPNR + '\n\n✅ Booking confirmed!');
+  });
+
+  searchBtn.addEventListener('click', performSearch);
+  fromInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearch(); });
+  toInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearch(); });
+  dateInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearch(); });
+
+  // ============================================================
+  //  INIT
+  // ============================================================
+  switchPage('passenger', document.querySelector('#sidebarContent a'));
+  renderSidebar();
+  placeholder.style.display = 'block';
+  resultsContainer.style.display = 'none';
+
+  console.log('🚍 BusHub Zambia loaded successfully!');
+</script>
+
+</body>
+</html>
