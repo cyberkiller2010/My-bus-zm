@@ -250,7 +250,7 @@
 <body>
 
 <div class="app">
-  <!-- ===== TOP NAVBAR ===== -->
+  <!-- TOP NAVBAR -->
   <div class="top-nav">
     <div class="logo">
       <h1><i class="fas fa-bus"></i> BusHub</h1>
@@ -268,69 +268,44 @@
     </div>
   </div>
 
-  <!-- ===== SIDEBAR OVERLAY ===== -->
+  <!-- SIDEBAR -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-  <!-- ===== SIDEBAR ===== -->
   <div class="sidebar" id="sidebar">
     <button class="sidebar-close" onclick="closeSidebar()"><i class="fas fa-times"></i></button>
     <div class="sidebar-brand">
       <div class="brand-icon">BH</div>
-      <div class="brand-text">
-        <h1>BusHub</h1>
-        <span>Zambia</span>
-      </div>
+      <div class="brand-text"><h1>BusHub</h1><span>Zambia</span></div>
     </div>
-    <div id="sidebarContent">
-      <!-- Dynamic content injected by JavaScript -->
-    </div>
+    <div id="sidebarContent"></div>
   </div>
 
-  <!-- ===== PROGRESS OVERLAY ===== -->
+  <!-- PROGRESS OVERLAY -->
   <div class="progress-overlay" id="progressOverlay">
     <div class="progress-box">
       <h3 id="progressTitle">Loading...</h3>
       <p id="progressSubtitle">Please wait</p>
-      <div class="progress-bar-track">
-        <div class="progress-bar-fill" id="progressFill"></div>
-      </div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
       <div class="progress-percent" id="progressPercent">0%</div>
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: PASSENGER ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== PASSENGER PAGE ===== -->
   <div class="page active" id="page-passenger">
     <h2><i class="fas fa-search"></i> Find Your Bus</h2>
     <p class="subtitle">Search for available buses across Zambia.</p>
-    
     <div class="search-section">
       <div class="search-grid">
-        <div class="search-item">
-          <i class="fas fa-map-pin"></i>
-          <input type="text" id="fromInput" placeholder="From (e.g. Lusaka)" autocomplete="off">
-          <div class="suggestions-box" id="fromSuggestions"></div>
-        </div>
-        <div class="search-item">
-          <i class="fas fa-flag-checkered"></i>
-          <input type="text" id="toInput" placeholder="To (e.g. Livingstone)" autocomplete="off">
-          <div class="suggestions-box" id="toSuggestions"></div>
-        </div>
-        <div class="search-item">
-          <i class="fas fa-calendar-day"></i>
-          <input type="date" id="dateInput">
-        </div>
-        <button class="search-btn" id="searchBtn" onclick="performSearchWithProgress()"><i class="fas fa-search"></i> Search</button>
+        <div class="search-item"><i class="fas fa-map-pin"></i><input type="text" id="fromInput" placeholder="From (e.g. Lusaka)" autocomplete="off"><div class="suggestions-box" id="fromSuggestions"></div></div>
+        <div class="search-item"><i class="fas fa-flag-checkered"></i><input type="text" id="toInput" placeholder="To (e.g. Livingstone)" autocomplete="off"><div class="suggestions-box" id="toSuggestions"></div></div>
+        <div class="search-item"><i class="fas fa-calendar-day"></i><input type="date" id="dateInput"></div>
+        <button class="search-btn" id="searchBtn" onclick="performSearch()"><i class="fas fa-search"></i> Search</button>
       </div>
     </div>
-    
     <div id="searchPlaceholder" class="search-placeholder">
       <i class="fas fa-bus"></i>
       <h3>Find your bus</h3>
       <p>Enter your route and date above, then click Search.</p>
     </div>
-    
     <div id="resultsContainer" style="display:none;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.4rem;">
         <div style="font-size:0.8rem;color:#b6bdf0;">From <strong id="fromDisplay" style="color:#edeef2;">—</strong> → To <strong id="toDisplay" style="color:#edeef2;">—</strong></div>
@@ -340,40 +315,26 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: SUPER ADMIN OVERVIEW ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== SUPER ADMIN ===== -->
   <div class="page" id="page-superadmin">
     <h2><i class="fas fa-user-shield"></i> Platform Overview</h2>
     <p class="subtitle">Welcome back, Super Admin.</p>
-    <div class="stats-grid" id="superAdminStats">
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-building"></i></div><div class="stat-value" id="saTotalCompanies">0</div><div class="stat-label">Total Companies</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-value">K 0</div><div class="stat-label">Total Earnings</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-ticket-alt"></i></div><div class="stat-value">0</div><div class="stat-label">Total Bookings</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">0</div><div class="stat-label">Registered Passengers</div></div>
-    </div>
+    <div class="stats-grid"><div class="stat-card"><div class="stat-icon"><i class="fas fa-building"></i></div><div class="stat-value" id="saTotalCompanies">0</div><div class="stat-label">Total Companies</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-value">K 0</div><div class="stat-label">Total Earnings</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-ticket-alt"></i></div><div class="stat-value">0</div><div class="stat-label">Total Bookings</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">0</div><div class="stat-label">Registered Passengers</div></div></div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: SUPER ADMIN PENDING APPROVALS ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== SUPER ADMIN PENDING ===== -->
   <div class="page" id="page-pending">
     <h2><i class="fas fa-clock"></i> Pending Approvals</h2>
     <p class="subtitle">Review and approve new bus companies.</p>
     <div id="pendingApprovalsList">
-      <div class="list-item">
-        <div class="item-left">
-          <div class="title">No pending approvals</div>
-          <div class="subtitle">All companies have been reviewed</div>
-        </div>
-        <div class="item-right"><span class="badge approved">All Clear</span></div>
-      </div>
+      <div class="list-item"><div class="item-left"><div class="title">No pending approvals</div><div class="subtitle">All companies have been reviewed</div></div><div class="item-right"><span class="badge approved">All Clear</span></div></div>
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: SUPER ADMIN PLATFORM SETTINGS ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== SUPER ADMIN SETTINGS ===== -->
   <div class="page" id="page-settings-super">
     <h2><i class="fas fa-cog"></i> Platform Settings</h2>
     <p class="subtitle">Manage platform configuration.</p>
@@ -387,72 +348,45 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: COMPANY ADMIN OVERVIEW ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== COMPANY ADMIN ===== -->
   <div class="page" id="page-company">
     <h2><i class="fas fa-building"></i> Company Overview</h2>
     <p class="subtitle">Welcome back, Company Admin.</p>
-    <div class="stats-grid" id="companyStats">
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-calendar-check"></i></div><div class="stat-value">0</div><div class="stat-label">Today's Trips</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">0</div><div class="stat-label">Today's Passengers</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-pie"></i></div><div class="stat-value">0%</div><div class="stat-label">Occupancy Rate</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div><div class="stat-value">K 0</div><div class="stat-label">Revenue Today</div></div>
-    </div>
+    <div class="stats-grid"><div class="stat-card"><div class="stat-icon"><i class="fas fa-calendar-check"></i></div><div class="stat-value">0</div><div class="stat-label">Today's Trips</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">0</div><div class="stat-label">Today's Passengers</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-pie"></i></div><div class="stat-value">0%</div><div class="stat-label">Occupancy Rate</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div><div class="stat-value">K 0</div><div class="stat-label">Revenue Today</div></div></div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: COMPANY ADMIN BRANCH VIEW ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== COMPANY ADMIN BRANCH VIEW ===== -->
   <div class="page" id="page-branchview">
     <h2><i class="fas fa-store"></i> Branch View</h2>
     <p class="subtitle">View branches and their bookings.</p>
-    
     <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1rem;">
-      <input type="text" id="branchSearchInput" placeholder="Search branch by name or location..." style="flex:1;background:#0f1122;border:1px solid #42477a;border-radius:2rem;padding:0.5rem 1rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;min-width:150px;">
+      <input type="text" id="branchSearchInput" placeholder="Search branch..." style="flex:1;background:#0f1122;border:1px solid #42477a;border-radius:2rem;padding:0.5rem 1rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;min-width:150px;">
       <button class="action-btn primary" onclick="searchBranch()"><i class="fas fa-search"></i> Search</button>
     </div>
-    
-    <div id="branchListContainer" class="branch-view-grid">
-      <!-- Branches rendered by JS -->
-    </div>
-
+    <div id="branchListContainer" class="branch-view-grid"></div>
     <div id="bookingsContainer" style="display:none;margin-top:1.5rem;">
       <h3 style="color:#edeef2;font-size:1rem;margin-bottom:0.5rem;" id="selectedBranchName">Bookings for <span style="color:#6c5ce7;">Branch Name</span></h3>
-      
       <div class="table-search">
         <input type="text" id="tableSearchInput" placeholder="Search by name, age, route, PNR, date..." oninput="filterTable()">
         <button class="action-btn info" onclick="filterTable()"><i class="fas fa-search"></i> Search</button>
         <button class="action-btn" onclick="clearTableSearch()"><i class="fas fa-times"></i> Clear</button>
       </div>
-      
       <div class="table-wrapper">
         <table id="bookingsTable">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Route</th>
-              <th>PNR</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="bookingsTableBody">
-            <!-- Rows injected by JS -->
-          </tbody>
+          <thead><tr><th>Date</th><th>Name</th><th>Age</th><th>Route</th><th>PNR</th><th>Status</th></tr></thead>
+          <tbody id="bookingsTableBody"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: COMPANY ADMIN MANAGEMENT ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== COMPANY ADMIN MANAGEMENT ===== -->
   <div class="page" id="page-management-company">
     <h2><i class="fas fa-cogs"></i> Management</h2>
     <p class="subtitle">Manage branches.</p>
-    
     <div class="management-grid">
       <div class="management-card">
         <h3><i class="fas fa-plus-circle" style="color:#4ade80;"></i> Add Branch</h3>
@@ -464,22 +398,15 @@
         <div class="form-group"><label>Staff Count</label><input type="number" id="companyBranchStaff" placeholder="e.g., 8"></div>
         <button class="action-btn primary" onclick="addBranchWithAccount()" style="width:100%;justify-content:center;"><i class="fas fa-plus"></i> Add Branch</button>
       </div>
-      
       <div class="management-card">
         <h3><i class="fas fa-trash" style="color:#f06060;"></i> Delete Branch</h3>
-        <div class="form-group"><label>Select Branch to Delete</label>
-          <select id="companyDeleteBranchSelect">
-            <option value="">Select branch...</option>
-          </select>
-        </div>
+        <div class="form-group"><label>Select Branch to Delete</label><select id="companyDeleteBranchSelect"><option value="">Select branch...</option></select></div>
         <button class="action-btn danger" onclick="deleteBranchCompany()" style="width:100%;justify-content:center;"><i class="fas fa-trash"></i> Delete Branch</button>
       </div>
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: COMPANY ADMIN SETTINGS ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== COMPANY ADMIN SETTINGS ===== -->
   <div class="page" id="page-settings-company">
     <h2><i class="fas fa-cog"></i> Settings</h2>
     <p class="subtitle">Manage your account.</p>
@@ -493,108 +420,57 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: BRANCH MANAGER OVERVIEW ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== BRANCH MANAGER ===== -->
   <div class="page" id="page-branch">
     <h2><i class="fas fa-store"></i> Branch Overview</h2>
     <p class="subtitle">Welcome back, Branch Manager.</p>
-    <div class="stats-grid" id="branchStats">
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div><div class="stat-value">K 0</div><div class="stat-label">Total Earnings</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">0</div><div class="stat-label">Total Customers</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-ticket-alt"></i></div><div class="stat-value">0</div><div class="stat-label">Tickets Sold Today</div></div>
-      <div class="stat-card"><div class="stat-icon"><i class="fas fa-user-friends"></i></div><div class="stat-value">0</div><div class="stat-label">Walk-in Customers</div></div>
-    </div>
-    
+    <div class="stats-grid"><div class="stat-card"><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div><div class="stat-value">K 0</div><div class="stat-label">Total Earnings</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">0</div><div class="stat-label">Total Customers</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-ticket-alt"></i></div><div class="stat-value">0</div><div class="stat-label">Tickets Sold Today</div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-user-friends"></i></div><div class="stat-value">0</div><div class="stat-label">Walk-in Customers</div></div></div>
     <div style="font-size:0.9rem;font-weight:600;margin:1rem 0 0.6rem 0;display:flex;align-items:center;gap:6px;color:#edeef2;"><i class="fas fa-list" style="color:#6c5ce7;"></i> All Bookings</div>
-    <div id="branchManagerBookings">
-      <div class="list-item">
-        <div class="item-left"><div class="title">No bookings found</div><div class="subtitle">Bookings will appear here once passengers book</div></div>
-        <div class="item-right"><span class="badge active">Waiting</span></div>
-      </div>
-    </div>
+    <div id="branchManagerBookings"><div class="list-item"><div class="item-left"><div class="title">No bookings found</div></div></div></div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: BRANCH MANAGER MANAGEMENT ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== BRANCH MANAGER MANAGEMENT ===== -->
   <div class="page" id="page-branch-management">
     <h2><i class="fas fa-cogs"></i> Management</h2>
     <p class="subtitle">Manage buses and routes.</p>
-    
     <div class="management-grid">
-      <div class="management-card">
-        <h3><i class="fas fa-bus" style="color:#60a0f0;"></i> Add Bus</h3>
+      <div class="management-card"><h3><i class="fas fa-bus" style="color:#60a0f0;"></i> Add Bus</h3>
         <div class="form-group"><label>Bus Name</label><input type="text" id="branchBusName" placeholder="e.g., Sharma Travels #ABC-123"></div>
-        <div class="form-group"><label>Capacity (Seats)</label><input type="number" id="branchBusCapacity" placeholder="e.g., 40"></div>
-        <div class="form-group"><label>Bus Type</label>
-          <select id="branchBusType">
-            <option value="AC Sleeper">AC Sleeper</option>
-            <option value="Seater">Seater</option>
-            <option value="AC Seater">AC Seater</option>
-            <option value="Economy">Economy</option>
-          </select>
-        </div>
+        <div class="form-group"><label>Capacity</label><input type="number" id="branchBusCapacity" placeholder="e.g., 40"></div>
+        <div class="form-group"><label>Bus Type</label><select id="branchBusType"><option value="AC Sleeper">AC Sleeper</option><option value="Seater">Seater</option><option value="AC Seater">AC Seater</option><option value="Economy">Economy</option></select></div>
         <button class="action-btn primary" onclick="addBusBranch()" style="width:100%;justify-content:center;"><i class="fas fa-plus"></i> Add Bus</button>
       </div>
-      
-      <div class="management-card">
-        <h3><i class="fas fa-route" style="color:#f0d060;"></i> Add Route</h3>
-        <div class="form-group"><label>Select Bus</label>
-          <select id="branchRouteBus">
-            <option value="">Select bus...</option>
-          </select>
-        </div>
+      <div class="management-card"><h3><i class="fas fa-route" style="color:#f0d060;"></i> Add Route</h3>
+        <div class="form-group"><label>Select Bus</label><select id="branchRouteBus"><option value="">Select bus...</option></select></div>
         <div class="form-group"><label>Route From</label><input type="text" id="branchRouteFrom" placeholder="e.g., Kaoma"></div>
         <div class="form-group"><label>Route To</label><input type="text" id="branchRouteTo" placeholder="e.g., Lusaka"></div>
-        <div class="form-group"><label>Price (K)</label><input type="number" id="branchRoutePrice" placeholder="e.g., 150"></div>
-        <div class="form-group"><label>Departure Time</label><input type="time" id="branchRouteDeparture"></div>
-        <div class="form-group"><label>Arrival Time</label><input type="time" id="branchRouteArrival"></div>
+        <div class="form-group"><label>Price</label><input type="number" id="branchRoutePrice" placeholder="e.g., 150"></div>
+        <div class="form-group"><label>Departure</label><input type="time" id="branchRouteDeparture"></div>
+        <div class="form-group"><label>Arrival</label><input type="time" id="branchRouteArrival"></div>
         <button class="action-btn primary" onclick="addRouteBranch()" style="width:100%;justify-content:center;"><i class="fas fa-plus"></i> Add Route</button>
       </div>
     </div>
-    
-    <div style="margin-top:1rem;">
-      <h3 style="color:#edeef2;font-size:0.9rem;margin-bottom:0.5rem;">Added Buses & Routes</h3>
-      <div id="branchBusList"><p style="color:#5a5f8a;font-size:0.8rem;">No buses or routes added yet.</p></div>
-    </div>
+    <div style="margin-top:1rem;"><h3 style="color:#edeef2;font-size:0.9rem;margin-bottom:0.5rem;">Added Buses & Routes</h3><div id="branchBusList"><p style="color:#5a5f8a;font-size:0.8rem;">No buses or routes added yet.</p></div></div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: BRANCH MANAGER VIEW BRANCH ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== BRANCH MANAGER VIEW BRANCH ===== -->
   <div class="page" id="page-branch-viewbranch">
     <h2><i class="fas fa-store"></i> View Branch</h2>
     <p class="subtitle">View branch details and bookings.</p>
-    
     <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1rem;">
       <input type="text" id="branchViewSearchInput" placeholder="Search bookings..." style="flex:1;background:#0f1122;border:1px solid #42477a;border-radius:2rem;padding:0.5rem 1rem;color:white;font-size:0.8rem;font-family:'Inter',sans-serif;outline:none;min-width:150px;">
       <button class="action-btn primary" onclick="filterBranchView()"><i class="fas fa-search"></i> Search</button>
       <button class="action-btn" onclick="clearBranchViewSearch()"><i class="fas fa-times"></i> Clear</button>
     </div>
-    
     <div class="table-wrapper">
-      <table id="branchViewTable">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Route</th>
-            <th>PNR</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="branchViewTableBody">
-          <tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">No bookings found.</td></tr>
-        </tbody>
-      </table>
+      <table id="branchViewTable"><thead><tr><th>Date</th><th>Name</th><th>Age</th><th>Route</th><th>PNR</th><th>Status</th></tr></thead><tbody id="branchViewTableBody"><tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">No bookings found.</td></tr></tbody></table>
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: BRANCH MANAGER SETTINGS ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== BRANCH MANAGER SETTINGS ===== -->
   <div class="page" id="page-settings-branch">
     <h2><i class="fas fa-cog"></i> Settings</h2>
     <p class="subtitle">Manage your account.</p>
@@ -608,9 +484,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ===== PAGE: REGISTER COMPANY ===== -->
-  <!-- ============================================================ -->
+  <!-- ===== REGISTER COMPANY ===== -->
   <div class="page" id="page-register">
     <h2><i class="fas fa-building"></i> Register Company</h2>
     <p class="subtitle">Register your bus company on BusHub Zambia.</p>
@@ -626,1379 +500,1195 @@
 
 </div>
 
-<!-- ===== BOTTOM BAR ===== -->
+<!-- BOTTOM BAR -->
 <div class="booking-bar" id="bookingBar">
-  <div class="info">
-    <span class="label">Selected:</span>
-    <span class="value" id="selectedRoute">—</span>
-    <span class="price" id="selectedPrice">K 0</span>
-  </div>
-  <button class="view-btn" id="viewBookingBtn" disabled>
-    <i class="fas fa-eye"></i> View Booking
-  </button>
+  <div class="info"><span class="label">Selected:</span><span class="value" id="selectedRoute">—</span><span class="price" id="selectedPrice">K 0</span></div>
+  <button class="view-btn" id="viewBookingBtn" disabled><i class="fas fa-eye"></i> View Booking</button>
 </div>
 
-<!-- ===== MODAL ===== -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-content" id="modalContent">
     <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>
   </div>
 </div>
 
-<!-- ===== SCRIPTS ===== -->
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/firebase@9.22.0/firebase-app-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/firebase@9.22.0/firebase-auth-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/firebase@9.22.0/firebase-firestore-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-  // ============================================================
-  //  FIREBASE CONFIG
-  // ============================================================
-  const firebaseConfig = {
-    apiKey: "AIzaSyCr4LclnsMjcIUNWw1_NfLPpSJI4Y0nQds",
-    authDomain: "my-bus-zm.firebaseapp.com",
-    projectId: "my-bus-zm",
-    storageBucket: "my-bus-zm.firebasestorage.app",
-    messagingSenderId: "148999000077",
-    appId: "1:148999000077:web:aba2b5a1175152db684544"
+// ============================================================
+// FIREBASE CONFIG
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCr4LclnsMjcIUNWw1_NfLPpSJI4Y0nQds",
+  authDomain: "my-bus-zm.firebaseapp.com",
+  projectId: "my-bus-zm",
+  storageBucket: "my-bus-zm.firebasestorage.app",
+  messagingSenderId: "148999000077",
+  appId: "1:148999000077:web:aba2b5a1175152db684544"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// ============================================================
+// EMAILJS
+// ============================================================
+emailjs.init("3OZhGhCB91PovNpE0");
+const EMAILJS_TEMPLATE_ID = "template_mh6raps";
+const EMAILJS_SERVICE_ID = "service_tuuo73f";
+
+// ============================================================
+// STATE
+// ============================================================
+let currentUser = null;
+let currentUserData = null;
+let currentRole = 'passenger';
+let allLocations = ['Lusaka','Kitwe','Ndola','Livingstone','Solwezi','Chipata','Mongu','Kasama','Choma','Mansa','Chingola','Luanshya','Mufulira','Kabwe','Kapiri Mposhi','Mazabuka','Kafue','Zimba','Nyimba','Sinda','Mumbwa','Kaoma','Mpika'];
+let branchBuses = [];
+let branchRoutes = [];
+let branches = [];
+let branchBookings = {};
+
+// DEFAULT SUPER ADMIN
+const DEFAULT_SUPER_ADMIN = {
+  email: 'admin@bushub.zm',
+  password: 'Admin@123'
+};
+
+// ============================================================
+// SIDEBAR
+// ============================================================
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+  renderSidebar();
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+function renderSidebar() {
+  const container = document.getElementById('sidebarContent');
+  let html = '';
+
+  if (!currentUser) {
+    html = `
+      <ul class="sidebar-menu">
+        <li><a class="active" onclick="switchPage('passenger', this); closeSidebar();"><i class="fas fa-home"></i> Home</a></li>
+        <li class="divider"></li>
+        <li class="menu-label">Login as Role</li>
+        <li><a onclick="openRoleLogin('superadmin'); closeSidebar();"><i class="fas fa-user-shield"></i> Super Admin</a></li>
+        <li><a onclick="openRoleLogin('company'); closeSidebar();"><i class="fas fa-building"></i> Company Admin</a></li>
+        <li><a onclick="openRoleLogin('branch'); closeSidebar();"><i class="fas fa-store"></i> Branch Manager</a></li>
+        <li class="divider"></li>
+        <li><a onclick="switchPage('register', this); closeSidebar();"><i class="fas fa-pen"></i> Register Company</a></li>
+      </ul>
+    `;
+  } else if (currentRole === 'superadmin') {
+    html = `
+      <ul class="sidebar-menu">
+        <li><a class="active" onclick="switchPage('superadmin', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
+        <li><a onclick="switchPage('pending', this); closeSidebar();"><i class="fas fa-clock"></i> Pending Approvals</a></li>
+        <li><a onclick="switchPage('settings-super', this); closeSidebar();"><i class="fas fa-cog"></i> Settings</a></li>
+        <li class="divider"></li>
+        <li><a onclick="logoutUser(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    `;
+  } else if (currentRole === 'company') {
+    html = `
+      <ul class="sidebar-menu">
+        <li><a class="active" onclick="switchPage('company', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
+        <li><a onclick="switchPage('branchview', this); closeSidebar();"><i class="fas fa-store"></i> Branch View</a></li>
+        <li><a onclick="switchPage('management-company', this); closeSidebar();"><i class="fas fa-cogs"></i> Management</a></li>
+        <li><a onclick="switchPage('settings-company', this); closeSidebar();"><i class="fas fa-cog"></i> Settings</a></li>
+        <li class="divider"></li>
+        <li><a onclick="logoutUser(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    `;
+  } else if (currentRole === 'branch') {
+    html = `
+      <ul class="sidebar-menu">
+        <li><a class="active" onclick="switchPage('branch', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
+        <li><a onclick="switchPage('branch-management', this); closeSidebar();"><i class="fas fa-cogs"></i> Management</a></li>
+        <li><a onclick="switchPage('branch-viewbranch', this); closeSidebar();"><i class="fas fa-store"></i> View Branch</a></li>
+        <li><a onclick="switchPage('settings-branch', this); closeSidebar();"><i class="fas fa-cog"></i> Settings</a></li>
+        <li class="divider"></li>
+        <li><a onclick="logoutUser(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    `;
+  }
+
+  container.innerHTML = html;
+}
+
+// ============================================================
+// PAGE SWITCHING
+// ============================================================
+function switchPage(pageId, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + pageId);
+  if (target) target.classList.add('active');
+
+  document.querySelectorAll('#sidebarContent .sidebar-menu a').forEach(l => l.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  if (pageId === 'passenger') {
+    document.getElementById('searchPlaceholder').style.display = 'block';
+    document.getElementById('resultsContainer').style.display = 'none';
+    document.getElementById('bookingBar').style.display = 'flex';
+  } else {
+    document.getElementById('bookingBar').style.display = 'none';
+  }
+}
+
+// ============================================================
+// ROLE LOGIN MODAL
+// ============================================================
+function openRoleLogin(role) {
+  const roleNames = {
+    'superadmin': 'Super Admin',
+    'company': 'Company Admin',
+    'branch': 'Branch Manager'
   };
+  const html = `
+    <h2><i class="fas fa-sign-in-alt" style="color:#6c5ce7;"></i> ${roleNames[role]} Login</h2>
+    <div class="sub">Enter your credentials to access the ${roleNames[role]} dashboard.</div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="roleLoginEmail" placeholder="Enter your email" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="roleLoginPassword" placeholder="Enter your password" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;">
+    </div>
+    <button class="action-btn primary" onclick="handleRoleLogin('${role}')" style="width:100%;justify-content:center;padding:0.6rem;">
+      <i class="fas fa-sign-in-alt"></i> Login as ${roleNames[role]}
+    </button>
+    <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Cancel</button>
+  `;
+  openModal(html);
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+  if (role === 'superadmin') {
+    document.getElementById('roleLoginEmail').value = DEFAULT_SUPER_ADMIN.email;
+  }
+}
 
-  // ============================================================
-  //  EMAILJS CONFIG
-  // ============================================================
-  emailjs.init("3OZhGhCB91PovNpE0");
-  const EMAILJS_TEMPLATE_ID = "template_mh6raps";
-  const EMAILJS_SERVICE_ID = "service_tuuo73f";
+// ============================================================
+// HANDLE ROLE LOGIN - SIMPLIFIED AND WORKING
+// ============================================================
+async function handleRoleLogin(role) {
+  const email = document.getElementById('roleLoginEmail').value.trim();
+  const password = document.getElementById('roleLoginPassword').value.trim();
 
-  // ============================================================
-  //  STATE
-  // ============================================================
-  let currentUser = null;
-  let currentUserData = null;
-  let currentRole = 'passenger';
-  let allLocations = ['Lusaka','Kitwe','Ndola','Livingstone','Solwezi','Chipata','Mongu','Kasama','Choma','Mansa','Chingola','Luanshya','Mufulira','Kabwe','Kapiri Mposhi','Mazabuka','Kafue','Zimba','Nyimba','Sinda','Mumbwa','Kaoma','Mpika'];
-  let branchBuses = [];
-  let branchRoutes = [];
+  if (!email || !password) {
+    alert('⚠️ Please enter both email and password.');
+    return;
+  }
 
-  // DEFAULT SUPER ADMIN
-  const DEFAULT_SUPER_ADMIN = {
-    email: 'admin@bushub.zm',
-    password: 'Admin@123'
-  };
-
-  // ============================================================
-  //  PROGRESS BAR
-  // ============================================================
-  function showProgress(title, subtitle) {
-    document.getElementById('progressTitle').textContent = title;
-    document.getElementById('progressSubtitle').textContent = subtitle || 'Please wait...';
-    document.getElementById('progressFill').style.width = '0%';
-    document.getElementById('progressPercent').textContent = '0%';
+  try {
+    // Show loading
     document.getElementById('progressOverlay').classList.add('active');
-  }
+    document.getElementById('progressTitle').textContent = 'Logging in...';
+    document.getElementById('progressSubtitle').textContent = 'Verifying credentials...';
+    document.getElementById('progressFill').style.width = '30%';
+    document.getElementById('progressPercent').textContent = '30%';
 
-  function updateProgress(percent, subtitle) {
-    document.getElementById('progressFill').style.width = percent + '%';
-    document.getElementById('progressPercent').textContent = percent + '%';
-    if (subtitle) document.getElementById('progressSubtitle').textContent = subtitle;
-  }
+    // Login
+    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    const user = userCredential.user;
 
-  function hideProgress() {
-    document.getElementById('progressOverlay').classList.remove('active');
-  }
+    document.getElementById('progressFill').style.width = '60%';
+    document.getElementById('progressPercent').textContent = '60%';
+    document.getElementById('progressSubtitle').textContent = 'Loading user data...';
 
-  // ============================================================
-  //  SIDEBAR
-  // ============================================================
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('sidebarOverlay').classList.toggle('active');
-    renderSidebar();
-  }
+    // Get user data
+    const userDoc = await db.collection('users').doc(user.uid).get();
 
-  function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('sidebarOverlay').classList.remove('active');
-  }
-
-  // ============================================================
-  //  RENDER SIDEBAR
-  // ============================================================
-  function renderSidebar() {
-    const container = document.getElementById('sidebarContent');
-    let html = '';
-
-    if (!currentUser) {
-      html = `
-        <ul class="sidebar-menu">
-          <li><a class="active" onclick="switchPage('passenger', this); closeSidebar();"><i class="fas fa-home"></i> Home</a></li>
-          <li class="divider"></li>
-          <li class="menu-label">Login as Role</li>
-          <li><a onclick="openRoleLogin('superadmin'); closeSidebar();"><i class="fas fa-user-shield"></i> Super Admin</a></li>
-          <li><a onclick="openRoleLogin('company'); closeSidebar();"><i class="fas fa-building"></i> Company Admin</a></li>
-          <li><a onclick="openRoleLogin('branch'); closeSidebar();"><i class="fas fa-store"></i> Branch Manager</a></li>
-          <li class="divider"></li>
-          <li><a onclick="switchPage('register', this); closeSidebar();"><i class="fas fa-pen"></i> Register Company</a></li>
-        </ul>
-      `;
-    } else if (currentRole === 'superadmin') {
-      html = `
-        <ul class="sidebar-menu">
-          <li><a class="active" onclick="switchPage('superadmin', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
-          <li><a onclick="switchPage('pending', this); closeSidebar();"><i class="fas fa-clock"></i> Pending Approvals</a></li>
-          <li><a onclick="switchPage('settings-super', this); closeSidebar();"><i class="fas fa-cog"></i> Settings</a></li>
-          <li class="divider"></li>
-          <li><a onclick="logoutUser(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        </ul>
-      `;
-    } else if (currentRole === 'company') {
-      html = `
-        <ul class="sidebar-menu">
-          <li><a class="active" onclick="switchPage('company', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
-          <li><a onclick="switchPage('branchview', this); closeSidebar();"><i class="fas fa-store"></i> Branch View</a></li>
-          <li><a onclick="switchPage('management-company', this); closeSidebar();"><i class="fas fa-cogs"></i> Management</a></li>
-          <li><a onclick="switchPage('settings-company', this); closeSidebar();"><i class="fas fa-cog"></i> Settings</a></li>
-          <li class="divider"></li>
-          <li><a onclick="logoutUser(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        </ul>
-      `;
-    } else if (currentRole === 'branch') {
-      html = `
-        <ul class="sidebar-menu">
-          <li><a class="active" onclick="switchPage('branch', this); closeSidebar();"><i class="fas fa-chart-line"></i> Overview</a></li>
-          <li><a onclick="switchPage('branch-management', this); closeSidebar();"><i class="fas fa-cogs"></i> Management</a></li>
-          <li><a onclick="switchPage('branch-viewbranch', this); closeSidebar();"><i class="fas fa-store"></i> View Branch</a></li>
-          <li><a onclick="switchPage('settings-branch', this); closeSidebar();"><i class="fas fa-cog"></i> Settings</a></li>
-          <li class="divider"></li>
-          <li><a onclick="logoutUser(); closeSidebar();"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        </ul>
-      `;
+    if (!userDoc.exists) {
+      document.getElementById('progressOverlay').classList.remove('active');
+      alert('❌ User account not found. Please contact support.');
+      return;
     }
 
-    container.innerHTML = html;
-  }
+    const userData = userDoc.data();
 
-  // ============================================================
-  //  PAGE SWITCHING
-  // ============================================================
-  function switchPage(pageId, btn) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + pageId);
-    if (target) target.classList.add('active');
-
-    document.querySelectorAll('#sidebarContent .sidebar-menu a').forEach(l => l.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-
-    if (pageId === 'passenger') {
-      document.getElementById('searchPlaceholder').style.display = 'block';
-      document.getElementById('resultsContainer').style.display = 'none';
-      document.getElementById('bookingBar').style.display = 'flex';
-    } else {
-      document.getElementById('bookingBar').style.display = 'none';
+    // Check role
+    if (userData.role !== role) {
+      document.getElementById('progressOverlay').classList.remove('active');
+      alert('❌ You are not authorized to access this role.');
+      return;
     }
-  }
 
-  // ============================================================
-  //  ROLE LOGIN MODAL
-  // ============================================================
-  function openRoleLogin(role) {
+    // Set state
+    currentUser = user;
+    currentUserData = userData;
+    currentRole = userData.role;
+
+    document.getElementById('progressFill').style.width = '90%';
+    document.getElementById('progressPercent').textContent = '90%';
+    document.getElementById('progressSubtitle').textContent = 'Loading dashboard...';
+
+    // Update UI
     const roleNames = {
       'superadmin': 'Super Admin',
       'company': 'Company Admin',
       'branch': 'Branch Manager'
     };
-    const html = `
-      <h2><i class="fas fa-sign-in-alt" style="color:#6c5ce7;"></i> ${roleNames[role]} Login</h2>
-      <div class="sub">Enter your credentials to access the ${roleNames[role]} dashboard.</div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="roleLoginEmail" placeholder="Enter your email" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="roleLoginPassword" placeholder="Enter your password" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;">
-      </div>
-      <button class="action-btn primary" onclick="handleRoleLogin('${role}')" style="width:100%;justify-content:center;padding:0.6rem;">
-        <i class="fas fa-sign-in-alt"></i> Login as ${roleNames[role]}
-      </button>
-      <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Cancel</button>
-    `;
-    openModal(html);
-    
-    // Pre-fill Super Admin email
-    if (role === 'superadmin') {
-      document.getElementById('roleLoginEmail').value = DEFAULT_SUPER_ADMIN.email;
-    }
+
+    document.getElementById('userName').textContent = userData.name || user.email;
+    document.getElementById('userRole').textContent = roleNames[role] || 'User';
+    document.getElementById('userAvatar').textContent = userData.name ? userData.name.charAt(0).toUpperCase() : 'U';
+
+    // Close modal and switch page
+    closeModal();
+    switchPage(role === 'superadmin' ? 'superadmin' : role, null);
+    renderSidebar();
+
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressPercent').textContent = '100%';
+    document.getElementById('progressSubtitle').textContent = 'Complete!';
+
+    setTimeout(() => {
+      document.getElementById('progressOverlay').classList.remove('active');
+      alert('✅ Welcome, ' + (userData.name || 'User') + '!');
+    }, 500);
+
+    // Load role-specific data
+    if (role === 'superadmin') loadSuperAdminStats();
+    if (role === 'company') loadBranches();
+    if (role === 'branch') loadBranchBookings();
+
+  } catch (error) {
+    document.getElementById('progressOverlay').classList.remove('active');
+    alert('❌ Login failed: ' + error.message);
   }
+}
 
-  async function handleRoleLogin(role) {
-    const email = document.getElementById('roleLoginEmail').value.trim();
-    const password = document.getElementById('roleLoginPassword').value.trim();
+// ============================================================
+// LOGOUT
+// ============================================================
+async function logoutUser() {
+  try {
+    await auth.signOut();
+    currentUser = null;
+    currentUserData = null;
+    currentRole = 'passenger';
+    document.getElementById('userName').textContent = 'Guest';
+    document.getElementById('userRole').textContent = 'Passenger';
+    document.getElementById('userAvatar').textContent = 'GU';
+    switchPage('passenger', document.querySelector('#sidebarContent a'));
+    renderSidebar();
+    alert('🔓 Logged out. Returned to Home.');
+  } catch (error) {
+    alert('❌ Logout failed: ' + error.message);
+  }
+}
 
-    if (!email || !password) {
-      showToast('⚠️ Please enter both email and password.');
-      return;
-    }
-
-    showProgress('Logging in...', 'Verifying credentials...');
-    updateProgress(30, 'Checking credentials...');
-
-    try {
-      const userCredential = await auth.signInWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-
-      updateProgress(60, 'Loading user data...');
-
-      const userDoc = await db.collection('users').doc(user.uid).get();
-      if (!userDoc.exists) {
-        throw new Error('User account not found. Please contact support.');
-      }
-
-      const userData = userDoc.data();
-
-      if (userData.role !== role) {
-        throw new Error('You are not authorized to access this role.');
-      }
-
-      currentUser = user;
-      currentUserData = userData;
-      currentRole = userData.role;
-
-      updateProgress(90, 'Loading dashboard...');
-
+// ============================================================
+// AUTH STATE LISTENER
+// ============================================================
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    currentUser = user;
+    const userDoc = await db.collection('users').doc(user.uid).get();
+    if (userDoc.exists) {
+      currentUserData = userDoc.data();
+      currentRole = currentUserData.role || 'passenger';
       const roleNames = {
         'superadmin': 'Super Admin',
         'company': 'Company Admin',
-        'branch': 'Branch Manager'
+        'branch': 'Branch Manager',
+        'passenger': 'Passenger'
       };
-
-      document.getElementById('userName').textContent = userData.name || user.email;
-      document.getElementById('userRole').textContent = roleNames[role] || 'User';
-      document.getElementById('userAvatar').textContent = userData.name ? userData.name.charAt(0).toUpperCase() : 'U';
-
-      closeModal();
-      switchPage(role === 'superadmin' ? 'superadmin' : role, null);
-      renderSidebar();
-      showToast('✅ Welcome, ' + (userData.name || 'User') + '!');
-
-      updateProgress(100, 'Complete!');
-      setTimeout(hideProgress, 500);
-
-    } catch (error) {
-      updateProgress(100, '❌ Error');
-      setTimeout(hideProgress, 500);
-      showToast('❌ ' + error.message);
-    }
-  }
-
-  // ============================================================
-  //  LOGOUT
-  // ============================================================
-  async function logoutUser() {
-    showProgress('Logging out...', 'Signing out...');
-    updateProgress(50, 'Clearing session...');
-    
-    try {
-      await auth.signOut();
-      updateProgress(100, 'Goodbye!');
-      setTimeout(hideProgress, 500);
-      
-      currentUser = null;
-      currentUserData = null;
-      currentRole = 'passenger';
-      document.getElementById('userName').textContent = 'Guest';
-      document.getElementById('userRole').textContent = 'Passenger';
-      document.getElementById('userAvatar').textContent = 'GU';
-      switchPage('passenger', document.querySelector('#sidebarContent a'));
-      renderSidebar();
-      showToast('🔓 Logged out. Returned to Home.');
-    } catch (error) {
-      hideProgress();
-      showToast('❌ Logout failed: ' + error.message);
-    }
-  }
-
-  // ============================================================
-  //  AUTH STATE LISTENER
-  // ============================================================
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      currentUser = user;
-      const userDoc = await db.collection('users').doc(user.uid).get();
-      if (userDoc.exists) {
-        currentUserData = userDoc.data();
-        currentRole = currentUserData.role || 'passenger';
-        const roleNames = {
-          'superadmin': 'Super Admin',
-          'company': 'Company Admin',
-          'branch': 'Branch Manager',
-          'passenger': 'Passenger'
-        };
-        document.getElementById('userName').textContent = currentUserData.name || user.email;
-        document.getElementById('userRole').textContent = roleNames[currentRole] || 'User';
-        document.getElementById('userAvatar').textContent = currentUserData.name ? currentUserData.name.charAt(0).toUpperCase() : 'U';
-        renderSidebar();
-      }
-    } else {
-      currentUser = null;
-      currentUserData = null;
-      currentRole = 'passenger';
-      document.getElementById('userName').textContent = 'Guest';
-      document.getElementById('userRole').textContent = 'Passenger';
-      document.getElementById('userAvatar').textContent = 'GU';
+      document.getElementById('userName').textContent = currentUserData.name || user.email;
+      document.getElementById('userRole').textContent = roleNames[currentRole] || 'User';
+      document.getElementById('userAvatar').textContent = currentUserData.name ? currentUserData.name.charAt(0).toUpperCase() : 'U';
       renderSidebar();
     }
-  });
+  } else {
+    currentUser = null;
+    currentUserData = null;
+    currentRole = 'passenger';
+    document.getElementById('userName').textContent = 'Guest';
+    document.getElementById('userRole').textContent = 'Passenger';
+    document.getElementById('userAvatar').textContent = 'GU';
+    renderSidebar();
+  }
+});
 
-  // ============================================================
-  //  TOAST & MODAL
-  // ============================================================
-  function showToast(msg) {
-    let t = document.querySelector('.toast');
-    if (t) t.remove();
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = msg;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
+// ============================================================
+// TOAST & MODAL
+// ============================================================
+function showToast(msg) {
+  let t = document.querySelector('.toast');
+  if (t) t.remove();
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function openModal(html) {
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+// ============================================================
+// UPDATE ACCOUNT
+// ============================================================
+async function updateAccount(role) {
+  const prefix = role === 'super' ? 'super' : role === 'company' ? 'company' : 'branch';
+  const newEmail = document.getElementById(prefix + 'NewEmail').value.trim();
+  const currentPwd = document.getElementById(prefix + 'CurrentPwd').value.trim();
+  const newPwd = document.getElementById(prefix + 'NewPwd').value.trim();
+  const confirmPwd = document.getElementById(prefix + 'ConfirmPwd').value.trim();
+
+  if (!currentPwd) {
+    alert('⚠️ Please enter your current password.');
+    return;
   }
 
-  function openModal(html) {
-    document.getElementById('modalContent').innerHTML = html;
-    document.getElementById('modalOverlay').classList.add('active');
-  }
-  function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('active');
-  }
+  try {
+    const user = auth.currentUser;
+    if (!user) throw new Error('You must be logged in.');
 
-  // ============================================================
-  //  UPDATE ACCOUNT
-  // ============================================================
-  async function updateAccount(role) {
-    const prefix = role === 'super' ? 'super' : role === 'company' ? 'company' : 'branch';
-    const newEmail = document.getElementById(prefix + 'NewEmail').value.trim();
-    const currentPwd = document.getElementById(prefix + 'CurrentPwd').value.trim();
-    const newPwd = document.getElementById(prefix + 'NewPwd').value.trim();
-    const confirmPwd = document.getElementById(prefix + 'ConfirmPwd').value.trim();
+    const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPwd);
+    await user.reauthenticateWithCredential(credential);
 
-    if (!currentPwd) {
-      showToast('⚠️ Please enter your current password.');
-      return;
+    if (newEmail && newEmail !== user.email) {
+      await user.updateEmail(newEmail);
+      if (currentUserData) {
+        await db.collection('users').doc(user.uid).update({ email: newEmail });
+      }
+      alert('✅ Email updated successfully!');
     }
 
-    showProgress('Updating account...', 'Verifying credentials...');
-    updateProgress(30, 'Authenticating...');
-
-    try {
-      const user = auth.currentUser;
-      if (!user) throw new Error('You must be logged in.');
-
-      const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPwd);
-      await user.reauthenticateWithCredential(credential);
-
-      updateProgress(50, 'Updating email...');
-
-      if (newEmail && newEmail !== user.email) {
-        await user.updateEmail(newEmail);
-        if (currentUserData) {
-          await db.collection('users').doc(user.uid).update({ email: newEmail });
-        }
-        showToast('✅ Email updated successfully!');
-      }
-
-      updateProgress(70, 'Updating password...');
-
-      if (newPwd && newPwd.length > 0) {
-        if (newPwd.length < 6) {
-          throw new Error('New password must be at least 6 characters.');
-        }
-        if (newPwd !== confirmPwd) {
-          throw new Error('Passwords do not match.');
-        }
-        await user.updatePassword(newPwd);
-        showToast('✅ Password updated successfully!');
-      }
-
-      updateProgress(100, 'Complete!');
-      setTimeout(hideProgress, 500);
-
-      document.getElementById(prefix + 'CurrentPwd').value = '';
-      document.getElementById(prefix + 'NewPwd').value = '';
-      document.getElementById(prefix + 'ConfirmPwd').value = '';
-
-    } catch (error) {
-      updateProgress(100, '❌ Error');
-      setTimeout(hideProgress, 500);
-      showToast('❌ ' + error.message);
-    }
-  }
-
-  // ============================================================
-  //  SUPER ADMIN FUNCTIONS
-  // ============================================================
-  async function loadSuperAdminStats() {
-    try {
-      const companies = await db.collection('companies').get();
-      document.getElementById('saTotalCompanies').textContent = companies.size;
-    } catch (e) { console.error(e); }
-  }
-
-  async function loadPendingApprovals() {
-    const container = document.getElementById('pendingApprovalsList');
-    try {
-      const snapshot = await db.collection('companies').where('status', '==', 'pending').get();
-      if (snapshot.empty) {
-        container.innerHTML = `
-          <div class="list-item">
-            <div class="item-left">
-              <div class="title">No pending approvals</div>
-              <div class="subtitle">All companies have been reviewed</div>
-            </div>
-            <div class="item-right"><span class="badge approved">All Clear</span></div>
-          </div>
-        `;
+    if (newPwd && newPwd.length > 0) {
+      if (newPwd.length < 6) {
+        alert('⚠️ New password must be at least 6 characters.');
         return;
       }
-      let html = '';
-      snapshot.forEach(doc => {
-        const company = { id: doc.id, ...doc.data() };
-        html += `
-          <div class="list-item">
-            <div class="item-left">
-              <div class="title">${company.name}</div>
-              <div class="subtitle">License: ${company.license || 'N/A'} · Contact: ${company.contactEmail || 'N/A'}</div>
-            </div>
-            <div class="item-right">
-              <span class="badge pending">Pending</span>
-              <button class="action-btn success" onclick="approveCompany('${company.id}', '${company.name}', '${company.contactEmail || ''}')"><i class="fas fa-check"></i> Approve</button>
-              <button class="action-btn danger" onclick="rejectCompany('${company.id}')"><i class="fas fa-times"></i> Reject</button>
-            </div>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-    } catch (e) { console.error(e); }
-  }
-
-  function approveCompany(companyId, companyName, contactEmail) {
-    const html = `
-      <h2><i class="fas fa-check-circle" style="color:#4ade80;"></i> Approve Company</h2>
-      <div class="sub">Create account for ${companyName}</div>
-      <div class="form-group">
-        <label>Company Email</label>
-        <input type="email" id="tempEmail" value="${contactEmail}" placeholder="e.g., info@company.com" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;">
-      </div>
-      <div class="form-group">
-        <label>Temporary Password</label>
-        <input type="text" id="tempPassword" value="Company@123" placeholder="e.g., Company@123" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;">
-      </div>
-      <div style="display:flex;gap:0.6rem;margin-top:0.5rem;">
-        <button class="action-btn primary" onclick="createCompanyAccount('${companyId}', '${companyName}')" style="flex:1;justify-content:center;padding:0.6rem;">
-          <i class="fas fa-user-plus"></i> Create Account
-        </button>
-        <button class="action-btn danger" onclick="closeModal()" style="flex:1;justify-content:center;padding:0.6rem;">
-          <i class="fas fa-times"></i> Cancel
-        </button>
-      </div>
-    `;
-    openModal(html);
-  }
-
-  async function createCompanyAccount(companyId, companyName) {
-    const email = document.getElementById('tempEmail').value.trim();
-    const password = document.getElementById('tempPassword').value.trim();
-
-    if (!email || !password) {
-      showToast('⚠️ Please enter both email and password.');
-      return;
-    }
-    if (password.length < 6) {
-      showToast('⚠️ Password must be at least 6 characters.');
-      return;
-    }
-
-    showProgress('Creating account...', 'Setting up...');
-    updateProgress(30, 'Creating authentication...');
-
-    try {
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
-
-      updateProgress(60, 'Saving company data...');
-
-      await db.collection('users').doc(user.uid).set({
-        uid: user.uid,
-        email: email,
-        name: companyName,
-        phone: '',
-        role: 'company',
-        companyId: companyId,
-        branchId: null,
-        firstLogin: true,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        status: 'active'
-      });
-
-      await db.collection('companies').doc(companyId).update({
-        status: 'active',
-        email: email,
-        approvedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      updateProgress(80, 'Sending credentials...');
-
-      // Send email
-      try {
-        const templateParams = {
-          to_name: companyName,
-          to_email: email,
-          password: password,
-          role: 'Company Admin',
-          login_url: 'https://cyberkiller2010.github.io/My-bus-zm/'
-        };
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-        showToast('📧 Credentials sent to ' + email);
-      } catch (e) {
-        showToast('ℹ️ Credentials: Email: ' + email + ' | Password: ' + password);
-      }
-
-      updateProgress(100, 'Complete!');
-      setTimeout(hideProgress, 500);
-
-      closeModal();
-      showToast('✅ Company approved! Account created for ' + companyName);
-      loadPendingApprovals();
-      loadSuperAdminStats();
-
-    } catch (error) {
-      updateProgress(100, '❌ Error');
-      setTimeout(hideProgress, 500);
-      showToast('❌ ' + error.message);
-    }
-  }
-
-  async function rejectCompany(companyId) {
-    if (confirm('Are you sure you want to reject this company?')) {
-      await db.collection('companies').doc(companyId).update({ status: 'rejected' });
-      showToast('❌ Company rejected.');
-      loadPendingApprovals();
-    }
-  }
-
-  // ============================================================
-  //  COMPANY ADMIN FUNCTIONS
-  // ============================================================
-  async function loadBranches() {
-    const container = document.getElementById('branchListContainer');
-    container.innerHTML = '<p style="color:#b6bdf0;text-align:center;padding:1rem;">Loading branches...</p>';
-    try {
-      if (!currentUserData || !currentUserData.companyId) {
-        container.innerHTML = '<p style="color:#b6bdf0;text-align:center;padding:1rem;">Please login as Company Admin.</p>';
+      if (newPwd !== confirmPwd) {
+        alert('⚠️ Passwords do not match.');
         return;
       }
-      const snapshot = await db.collection('branches')
-        .where('companyId', '==', currentUserData.companyId).get();
-      if (snapshot.empty) {
-        container.innerHTML = '<p style="color:#b6bdf0;text-align:center;padding:1rem;">No branches found. Add a branch in Management.</p>';
-        return;
-      }
-      let html = '';
-      snapshot.forEach(doc => {
-        const branch = { id: doc.id, ...doc.data() };
-        html += `
-          <div class="branch-card">
-            <div class="branch-name">🏪 ${branch.name}</div>
-            <div class="branch-detail">Manager: ${branch.managerName || 'N/A'} · Staff: ${branch.staff || 0}</div>
-            <div class="branch-detail">📍 Location: ${branch.location || 'N/A'}</div>
-            <div class="branch-actions">
-              <button class="action-btn primary" onclick="selectBranch('${branch.id}')"><i class="fas fa-eye"></i> View Bookings</button>
-            </div>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-    } catch (e) { console.error(e); }
-  }
-
-  function searchBranch() {
-    const query = document.getElementById('branchSearchInput').value.trim().toLowerCase();
-    const cards = document.querySelectorAll('.branch-card');
-    let found = false;
-    cards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      if (query === '' || text.includes(query)) { card.style.display = 'block'; found = true; }
-      else { card.style.display = 'none'; }
-    });
-    if (query !== '' && !found) showToast('🔍 No branches found matching "' + query + '"');
-  }
-
-  async function selectBranch(branchId) {
-    document.getElementById('selectedBranchName').innerHTML = 'Bookings for <span style="color:#6c5ce7;">Branch</span>';
-    document.getElementById('bookingsContainer').style.display = 'block';
-    try {
-      const snapshot = await db.collection('bookings')
-        .where('branchId', '==', branchId).orderBy('createdAt', 'desc').get();
-      const bookings = [];
-      snapshot.forEach(doc => { bookings.push({ id: doc.id, ...doc.data() }); });
-      const tbody = document.getElementById('bookingsTableBody');
-      if (bookings.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">No bookings found for this branch.</td></tr>';
-        return;
-      }
-      let html = '';
-      let currentDate = '';
-      bookings.forEach(booking => {
-        const dateStr = booking.createdAt ? new Date(booking.createdAt.toDate()).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : 'Unknown';
-        if (dateStr !== currentDate) { currentDate = dateStr; html += `<tr class="date-divider"><td colspan="6">📅 ${dateStr}</td></tr>`; }
-        const status = booking.attended ?
-          '<span class="status-present"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Present</span>' :
-          '<span class="status-absent"><i class="fas fa-times-circle" style="color:#f06060;"></i> Absent</span>';
-        html += `
-          <tr>
-            <td>${dateStr}</td>
-            <td>${booking.passengerName || 'N/A'}</td>
-            <td>${booking.age || 'N/A'}</td>
-            <td>${booking.route || 'N/A'}</td>
-            <td><strong>${booking.pnr || 'N/A'}</strong></td>
-            <td>
-              ${status}
-              ${!booking.attended ? `<button class="present-btn" onclick="markPresent('${booking.id}')"><i class="fas fa-check"></i> Present</button>` : ''}
-            </td>
-          </tr>
-        `;
-      });
-      tbody.innerHTML = html;
-    } catch (e) { console.error(e); }
-  }
-
-  async function markPresent(bookingId) {
-    try {
-      await db.collection('bookings').doc(bookingId).update({
-        attended: true,
-        status: 'boarded',
-        attendedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      showToast('✅ Passenger marked as Present!');
-      // Refresh the current view
-      const branchId = document.querySelector('.branch-card .action-btn.primary')?.onclick?.toString().match(/'([^']+)'/)?.[1];
-      if (branchId) selectBranch(branchId);
-    } catch (e) { showToast('❌ Error: ' + e.message); }
-  }
-
-  // ============================================================
-  //  COMPANY ADMIN: ADD BRANCH
-  // ============================================================
-  function addBranchWithAccount() {
-    const name = document.getElementById('companyBranchName').value.trim();
-    const location = document.getElementById('companyBranchLocation').value.trim();
-    const managerName = document.getElementById('companyBranchManager').value.trim();
-    const managerEmail = document.getElementById('companyBranchEmail').value.trim();
-    const tempPassword = document.getElementById('companyBranchPassword').value.trim();
-    const staff = parseInt(document.getElementById('companyBranchStaff').value.trim()) || 0;
-
-    if (!name || !location || !managerName || !managerEmail || !tempPassword) {
-      showToast('⚠️ Please fill in all fields.');
-      return;
-    }
-    if (tempPassword.length < 6) {
-      showToast('⚠️ Password must be at least 6 characters.');
-      return;
+      await user.updatePassword(newPwd);
+      alert('✅ Password updated successfully!');
     }
 
-    createBranchAccount(name, location, managerName, managerEmail, tempPassword, staff);
+    document.getElementById(prefix + 'CurrentPwd').value = '';
+    document.getElementById(prefix + 'NewPwd').value = '';
+    document.getElementById(prefix + 'ConfirmPwd').value = '';
+
+  } catch (error) {
+    alert('❌ ' + error.message);
   }
+}
 
-  async function createBranchAccount(branchName, location, managerName, managerEmail, tempPassword, staff) {
-    showProgress('Creating branch...', 'Setting up branch manager...');
-    updateProgress(30, 'Creating branch record...');
+// ============================================================
+// SUPER ADMIN FUNCTIONS
+// ============================================================
+async function loadSuperAdminStats() {
+  try {
+    const companies = await db.collection('companies').get();
+    document.getElementById('saTotalCompanies').textContent = companies.size;
+  } catch (e) { console.error(e); }
+}
 
-    try {
-      const companyId = currentUserData.companyId;
-
-      const branchRef = await db.collection('branches').add({
-        companyId: companyId,
-        name: branchName,
-        location: location,
-        managerName: managerName,
-        managerEmail: managerEmail,
-        staff: staff,
-        status: 'active',
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      updateProgress(60, 'Creating manager account...');
-
-      const userCredential = await auth.createUserWithEmailAndPassword(managerEmail, tempPassword);
-      const newUser = userCredential.user;
-
-      await db.collection('users').doc(newUser.uid).set({
-        uid: newUser.uid,
-        email: managerEmail,
-        name: managerName,
-        phone: '',
-        role: 'branch',
-        companyId: companyId,
-        branchId: branchRef.id,
-        firstLogin: true,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        status: 'active'
-      });
-
-      updateProgress(80, 'Sending credentials...');
-
-      try {
-        const templateParams = {
-          to_name: managerName,
-          to_email: managerEmail,
-          password: tempPassword,
-          role: 'Branch Manager',
-          login_url: 'https://cyberkiller2010.github.io/My-bus-zm/'
-        };
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-        showToast('📧 Credentials sent to ' + managerEmail);
-      } catch (e) {
-        showToast('ℹ️ Credentials: Email: ' + managerEmail + ' | Password: ' + tempPassword);
-      }
-
-      updateProgress(100, 'Complete!');
-      setTimeout(hideProgress, 500);
-
-      showToast('✅ Branch "' + branchName + '" created!');
-
-      document.getElementById('companyBranchName').value = '';
-      document.getElementById('companyBranchLocation').value = '';
-      document.getElementById('companyBranchManager').value = '';
-      document.getElementById('companyBranchEmail').value = '';
-      document.getElementById('companyBranchPassword').value = '';
-      document.getElementById('companyBranchStaff').value = '';
-
-      loadBranches();
-      updateBranchDropdowns();
-
-    } catch (error) {
-      updateProgress(100, '❌ Error');
-      setTimeout(hideProgress, 500);
-      showToast('❌ ' + error.message);
-    }
-  }
-
-  function deleteBranchCompany() {
-    const select = document.getElementById('companyDeleteBranchSelect');
-    const branchId = select.value;
-    if (!branchId) { showToast('⚠️ Please select a branch to delete.'); return; }
-    if (confirm('Are you sure you want to delete this branch?')) {
-      db.collection('branches').doc(branchId).delete().then(() => {
-        showToast('🗑️ Branch deleted.');
-        updateBranchDropdowns();
-        loadBranches();
-      }).catch(e => showToast('❌ Error: ' + e.message));
-    }
-  }
-
-  function updateBranchDropdowns() {
-    const select = document.getElementById('companyDeleteBranchSelect');
-    if (!select) return;
-    select.innerHTML = '<option value="">Select branch...</option>';
-    if (currentUserData?.companyId) {
-      db.collection('branches').where('companyId', '==', currentUserData.companyId).get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
-            const b = doc.data();
-            select.innerHTML += `<option value="${doc.id}">${b.name} (${b.location || 'N/A'})</option>`;
-          });
-        });
-    }
-  }
-
-  // ============================================================
-  //  BRANCH MANAGER FUNCTIONS
-  // ============================================================
-  async function loadBranchBookings() {
-    const container = document.getElementById('branchManagerBookings');
-    try {
-      if (!currentUserData || !currentUserData.branchId) {
-        container.innerHTML = '<div class="list-item"><div class="item-left"><div class="title">Please login as Branch Manager</div></div></div>';
-        return;
-      }
-      const snapshot = await db.collection('bookings')
-        .where('branchId', '==', currentUserData.branchId)
-        .orderBy('createdAt', 'desc').get();
-      if (snapshot.empty) {
-        container.innerHTML = '<div class="list-item"><div class="item-left"><div class="title">No bookings found</div></div></div>';
-        return;
-      }
-      let html = '';
-      snapshot.forEach(doc => {
-        const b = doc.data();
-        const dateStr = b.createdAt ? new Date(b.createdAt.toDate()).toLocaleDateString('en-GB', { day:'numeric', month:'short' }) : 'N/A';
-        const status = b.attended ?
-          '<span class="status-present"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Present</span>' :
-          '<span class="status-absent"><i class="fas fa-times-circle" style="color:#f06060;"></i> Absent</span>';
-        html += `
-          <div class="list-item">
-            <div class="item-left">
-              <div class="title">${b.passengerName || 'N/A'} · ${b.pnr || 'N/A'}</div>
-              <div class="subtitle">${b.route || 'N/A'} · ${dateStr}</div>
-            </div>
-            <div class="item-right">${status}</div>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-    } catch (e) { console.error(e); }
-  }
-
-  async function loadBranchViewTable() {
-    const tbody = document.getElementById('branchViewTableBody');
-    try {
-      if (!currentUserData || !currentUserData.branchId) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">Please login as Branch Manager.</td></tr>';
-        return;
-      }
-      const snapshot = await db.collection('bookings')
-        .where('branchId', '==', currentUserData.branchId)
-        .orderBy('createdAt', 'desc').get();
-      if (snapshot.empty) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">No bookings found.</td></tr>';
-        return;
-      }
-      let html = '';
-      let currentDate = '';
-      snapshot.forEach(doc => {
-        const b = doc.data();
-        const dateStr = b.createdAt ? new Date(b.createdAt.toDate()).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : 'Unknown';
-        if (dateStr !== currentDate) { currentDate = dateStr; html += `<tr class="date-divider"><td colspan="6">📅 ${dateStr}</td></tr>`; }
-        const status = b.attended ?
-          '<span class="status-present"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Present</span>' :
-          '<span class="status-absent"><i class="fas fa-times-circle" style="color:#f06060;"></i> Absent</span>';
-        html += `
-          <tr>
-            <td>${dateStr}</td>
-            <td>${b.passengerName || 'N/A'}</td>
-            <td>${b.age || 'N/A'}</td>
-            <td>${b.route || 'N/A'}</td>
-            <td><strong>${b.pnr || 'N/A'}</strong></td>
-            <td>
-              ${status}
-              ${!b.attended ? `<button class="present-btn" onclick="markPresentBranch('${doc.id}')"><i class="fas fa-check"></i> Present</button>` : ''}
-            </td>
-          </tr>
-        `;
-      });
-      tbody.innerHTML = html;
-    } catch (e) { console.error(e); }
-  }
-
-  async function markPresentBranch(bookingId) {
-    try {
-      await db.collection('bookings').doc(bookingId).update({
-        attended: true,
-        status: 'boarded',
-        attendedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      showToast('✅ Passenger marked as Present!');
-      loadBranchViewTable();
-      loadBranchBookings();
-    } catch (e) { showToast('❌ Error: ' + e.message); }
-  }
-
-  function filterBranchView() {
-    const query = document.getElementById('branchViewSearchInput').value.trim().toLowerCase();
-    const rows = document.querySelectorAll('#branchViewTableBody tr');
-    rows.forEach(row => {
-      if (row.classList.contains('date-divider')) { row.style.display = ''; return; }
-      row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
-    });
-  }
-
-  function clearBranchViewSearch() {
-    document.getElementById('branchViewSearchInput').value = '';
-    filterBranchView();
-  }
-
-  // ============================================================
-  //  BRANCH MANAGER: ADD BUS & ROUTE
-  // ============================================================
-  function addBusBranch() {
-    const name = document.getElementById('branchBusName').value.trim();
-    const capacity = parseInt(document.getElementById('branchBusCapacity').value.trim()) || 0;
-    const type = document.getElementById('branchBusType').value;
-    if (!name || capacity < 1) { showToast('⚠️ Please enter bus name and capacity.'); return; }
-    const newBus = { id: 'BUS' + String(Date.now()), name, capacity, type };
-    branchBuses.push(newBus);
-    showToast('✅ Bus "' + name + '" added!');
-    document.getElementById('branchBusName').value = '';
-    document.getElementById('branchBusCapacity').value = '';
-    updateBusDropdowns();
-    renderBranchBusList();
-  }
-
-  function addRouteBranch() {
-    const busId = document.getElementById('branchRouteBus').value;
-    const from = document.getElementById('branchRouteFrom').value.trim();
-    const to = document.getElementById('branchRouteTo').value.trim();
-    const price = parseInt(document.getElementById('branchRoutePrice').value.trim()) || 0;
-    const departure = document.getElementById('branchRouteDeparture').value;
-    const arrival = document.getElementById('branchRouteArrival').value;
-    if (!busId || !from || !to || !price || !departure || !arrival) {
-      showToast('⚠️ Please fill in all fields.');
-      return;
-    }
-    const bus = branchBuses.find(b => b.id === busId);
-    if (!bus) { showToast('⚠️ Please select a bus.'); return; }
-    const newRoute = {
-      id: 'RTE' + String(Date.now()),
-      busId: busId,
-      busName: bus.name,
-      from, to, price, departure, arrival
-    };
-    branchRoutes.push(newRoute);
-    showToast('✅ Route added: ' + from + ' → ' + to);
-    document.getElementById('branchRouteFrom').value = '';
-    document.getElementById('branchRouteTo').value = '';
-    document.getElementById('branchRoutePrice').value = '';
-    document.getElementById('branchRouteDeparture').value = '';
-    document.getElementById('branchRouteArrival').value = '';
-    renderBranchBusList();
-  }
-
-  function updateBusDropdowns() {
-    const select = document.getElementById('branchRouteBus');
-    if (!select) return;
-    select.innerHTML = '<option value="">Select bus...</option>';
-    branchBuses.forEach(b => {
-      select.innerHTML += `<option value="${b.id}">${b.name} (${b.capacity} seats)</option>`;
-    });
-  }
-
-  function renderBranchBusList() {
-    const container = document.getElementById('branchBusList');
-    if (!container) return;
-    if (branchBuses.length === 0 && branchRoutes.length === 0) {
-      container.innerHTML = '<p style="color:#5a5f8a;font-size:0.8rem;">No buses or routes added yet.</p>';
+async function loadPendingApprovals() {
+  const container = document.getElementById('pendingApprovalsList');
+  try {
+    const snapshot = await db.collection('companies').where('status', '==', 'pending').get();
+    if (snapshot.empty) {
+      container.innerHTML = `<div class="list-item"><div class="item-left"><div class="title">No pending approvals</div></div><div class="item-right"><span class="badge approved">All Clear</span></div></div>`;
       return;
     }
     let html = '';
-    branchBuses.forEach(bus => {
-      const routes = branchRoutes.filter(r => r.busId === bus.id);
-      html += `
-        <div class="list-item">
-          <div class="item-left">
-            <div class="title">🚍 ${bus.name}</div>
-            <div class="subtitle">${bus.capacity} seats · ${bus.type}</div>
-            ${routes.length > 0 ? routes.map(r => 
-              `<div class="subtitle" style="color:#8b92e8;">  └ ${r.from} → ${r.to} · ${r.departure} → ${r.arrival} · K ${r.price}</div>`
-            ).join('') : '<div class="subtitle" style="color:#5a5f8a;">No routes added</div>'}
-          </div>
-          <div class="item-right">
-            <button class="action-btn danger" onclick="deleteBus('${bus.id}')"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      `;
+    snapshot.forEach(doc => {
+      const company = { id: doc.id, ...doc.data() };
+      html += `<div class="list-item"><div class="item-left"><div class="title">${company.name}</div><div class="subtitle">License: ${company.license || 'N/A'}</div></div>
+        <div class="item-right"><span class="badge pending">Pending</span>
+        <button class="action-btn success" onclick="approveCompany('${company.id}', '${company.name}', '${company.contactEmail || ''}')"><i class="fas fa-check"></i> Approve</button>
+        <button class="action-btn danger" onclick="rejectCompany('${company.id}')"><i class="fas fa-times"></i> Reject</button></div></div>`;
     });
     container.innerHTML = html;
-  }
+  } catch (e) { console.error(e); }
+}
 
-  function deleteBus(busId) {
-    if (confirm('Delete this bus and all its routes?')) {
-      branchBuses = branchBuses.filter(b => b.id !== busId);
-      branchRoutes = branchRoutes.filter(r => r.busId !== busId);
-      showToast('🗑️ Bus deleted.');
-      updateBusDropdowns();
-      renderBranchBusList();
-    }
-  }
+function approveCompany(companyId, companyName, contactEmail) {
+  const html = `
+    <h2><i class="fas fa-check-circle" style="color:#4ade80;"></i> Approve Company</h2>
+    <div class="sub">Create account for ${companyName}</div>
+    <div class="form-group"><label>Company Email</label><input type="email" id="tempEmail" value="${contactEmail}" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;"></div>
+    <div class="form-group"><label>Temporary Password</label><input type="text" id="tempPassword" value="Company@123" style="background:#0f1122;border:1px solid #42477a;border-radius:0.8rem;padding:0.5rem 0.8rem;color:white;width:100%;font-family:'Inter',sans-serif;outline:none;"></div>
+    <div style="display:flex;gap:0.6rem;margin-top:0.5rem;">
+      <button class="action-btn primary" onclick="createCompanyAccount('${companyId}', '${companyName}')" style="flex:1;justify-content:center;padding:0.6rem;"><i class="fas fa-user-plus"></i> Create Account</button>
+      <button class="action-btn danger" onclick="closeModal()" style="flex:1;justify-content:center;padding:0.6rem;"><i class="fas fa-times"></i> Cancel</button>
+    </div>
+  `;
+  openModal(html);
+}
 
-  // ============================================================
-  //  REGISTER COMPANY (Public)
-  // ============================================================
-  async function registerCompany() {
-    const name = document.getElementById('regCompanyName').value.trim();
-    const license = document.getElementById('regLicense').value.trim();
-    const contact = document.getElementById('regContact').value.trim();
-    const email = document.getElementById('regContactEmail').value.trim();
-    const phone = document.getElementById('regPhone').value.trim();
+async function createCompanyAccount(companyId, companyName) {
+  const email = document.getElementById('tempEmail').value.trim();
+  const password = document.getElementById('tempPassword').value.trim();
 
-    if (!name || !license || !contact || !email || !phone) {
-      showToast('⚠️ Please fill in all fields.');
-      return;
-    }
+  if (!email || !password) { alert('⚠️ Please enter both email and password.'); return; }
+  if (password.length < 6) { alert('⚠️ Password must be at least 6 characters.'); return; }
 
-    showProgress('Registering company...', 'Submitting...');
-    updateProgress(50, 'Saving company data...');
+  try {
+    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+
+    await db.collection('users').doc(user.uid).set({
+      uid: user.uid, email: email, name: companyName, phone: '',
+      role: 'company', companyId: companyId, branchId: null,
+      firstLogin: true, createdAt: firebase.firestore.FieldValue.serverTimestamp(), status: 'active'
+    });
+
+    await db.collection('companies').doc(companyId).update({
+      status: 'active', email: email, approvedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
     try {
-      await db.collection('companies').add({
-        name, license, contactPerson: contact, contactEmail: email, phone,
-        status: 'pending',
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      updateProgress(100, 'Complete!');
-      setTimeout(hideProgress, 500);
-
-      showToast('✅ Company registered! Awaiting approval.');
-      document.getElementById('regCompanyName').value = '';
-      document.getElementById('regLicense').value = '';
-      document.getElementById('regContact').value = '';
-      document.getElementById('regContactEmail').value = '';
-      document.getElementById('regPhone').value = '';
-
-    } catch (error) {
-      updateProgress(100, '❌ Error');
-      setTimeout(hideProgress, 500);
-      showToast('❌ ' + error.message);
+      const templateParams = {
+        to_name: companyName, to_email: email, password: password,
+        role: 'Company Admin', login_url: 'https://cyberkiller2010.github.io/My-bus-zm/'
+      };
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      alert('📧 Credentials sent to ' + email);
+    } catch (e) {
+      alert('ℹ️ Credentials: Email: ' + email + ' | Password: ' + password);
     }
+
+    closeModal();
+    alert('✅ Company approved! Account created for ' + companyName);
+    loadPendingApprovals();
+    loadSuperAdminStats();
+
+  } catch (error) {
+    alert('❌ ' + error.message);
+  }
+}
+
+async function rejectCompany(companyId) {
+  if (confirm('Are you sure you want to reject this company?')) {
+    await db.collection('companies').doc(companyId).update({ status: 'rejected' });
+    alert('❌ Company rejected.');
+    loadPendingApprovals();
+  }
+}
+
+// ============================================================
+// COMPANY ADMIN FUNCTIONS
+// ============================================================
+async function loadBranches() {
+  const container = document.getElementById('branchListContainer');
+  container.innerHTML = '<p style="color:#b6bdf0;text-align:center;padding:1rem;">Loading branches...</p>';
+  try {
+    if (!currentUserData || !currentUserData.companyId) {
+      container.innerHTML = '<p style="color:#b6bdf0;text-align:center;padding:1rem;">Please login as Company Admin.</p>';
+      return;
+    }
+    const snapshot = await db.collection('branches').where('companyId', '==', currentUserData.companyId).get();
+    if (snapshot.empty) {
+      container.innerHTML = '<p style="color:#b6bdf0;text-align:center;padding:1rem;">No branches found.</p>';
+      return;
+    }
+    let html = '';
+    snapshot.forEach(doc => {
+      const branch = { id: doc.id, ...doc.data() };
+      html += `<div class="branch-card"><div class="branch-name">🏪 ${branch.name}</div>
+        <div class="branch-detail">Manager: ${branch.managerName || 'N/A'} · Staff: ${branch.staff || 0}</div>
+        <div class="branch-detail">📍 Location: ${branch.location || 'N/A'}</div>
+        <div class="branch-actions"><button class="action-btn primary" onclick="selectBranch('${branch.id}')"><i class="fas fa-eye"></i> View Bookings</button></div></div>`;
+    });
+    container.innerHTML = html;
+  } catch (e) { console.error(e); }
+}
+
+function searchBranch() {
+  const query = document.getElementById('branchSearchInput').value.trim().toLowerCase();
+  const cards = document.querySelectorAll('.branch-card');
+  let found = false;
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    if (query === '' || text.includes(query)) { card.style.display = 'block'; found = true; }
+    else { card.style.display = 'none'; }
+  });
+  if (query !== '' && !found) alert('🔍 No branches found matching "' + query + '"');
+}
+
+async function selectBranch(branchId) {
+  document.getElementById('selectedBranchName').innerHTML = 'Bookings for <span style="color:#6c5ce7;">Branch</span>';
+  document.getElementById('bookingsContainer').style.display = 'block';
+  try {
+    const snapshot = await db.collection('bookings').where('branchId', '==', branchId).orderBy('createdAt', 'desc').get();
+    const bookings = [];
+    snapshot.forEach(doc => { bookings.push({ id: doc.id, ...doc.data() }); });
+    const tbody = document.getElementById('bookingsTableBody');
+    if (bookings.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">No bookings found.</td></tr>';
+      return;
+    }
+    let html = '';
+    let currentDate = '';
+    bookings.forEach(booking => {
+      const dateStr = booking.createdAt ? new Date(booking.createdAt.toDate()).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : 'Unknown';
+      if (dateStr !== currentDate) { currentDate = dateStr; html += `<tr class="date-divider"><td colspan="6">📅 ${dateStr}</td></tr>`; }
+      const status = booking.attended ? '<span class="status-present">✅ Present</span>' : '<span class="status-absent">⏳ Absent</span>';
+      html += `<tr><td>${dateStr}</td><td>${booking.passengerName || 'N/A'}</td><td>${booking.age || 'N/A'}</td>
+        <td>${booking.route || 'N/A'}</td><td><strong>${booking.pnr || 'N/A'}</strong></td>
+        <td>${status} ${!booking.attended ? `<button class="present-btn" onclick="markPresent('${booking.id}')">✅ Present</button>` : ''}</td></tr>`;
+    });
+    tbody.innerHTML = html;
+  } catch (e) { console.error(e); }
+}
+
+async function markPresent(bookingId) {
+  try {
+    await db.collection('bookings').doc(bookingId).update({
+      attended: true, status: 'boarded', attendedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    alert('✅ Passenger marked as Present!');
+    // Refresh
+    const branchId = document.querySelector('.branch-card .action-btn.primary')?.onclick?.toString().match(/'([^']+)'/)?.[1];
+    if (branchId) selectBranch(branchId);
+  } catch (e) { alert('❌ Error: ' + e.message); }
+}
+
+// ============================================================
+// ADD BRANCH
+// ============================================================
+function addBranchWithAccount() {
+  const name = document.getElementById('companyBranchName').value.trim();
+  const location = document.getElementById('companyBranchLocation').value.trim();
+  const managerName = document.getElementById('companyBranchManager').value.trim();
+  const managerEmail = document.getElementById('companyBranchEmail').value.trim();
+  const tempPassword = document.getElementById('companyBranchPassword').value.trim();
+  const staff = parseInt(document.getElementById('companyBranchStaff').value.trim()) || 0;
+
+  if (!name || !location || !managerName || !managerEmail || !tempPassword) {
+    alert('⚠️ Please fill in all fields.');
+    return;
+  }
+  if (tempPassword.length < 6) {
+    alert('⚠️ Password must be at least 6 characters.');
+    return;
   }
 
-  // ============================================================
-  //  PASSENGER SEARCH (Simplified)
-  // ============================================================
-  const fromInput = document.getElementById('fromInput');
-  const toInput = document.getElementById('toInput');
-  const dateInput = document.getElementById('dateInput');
-  const fromSuggestions = document.getElementById('fromSuggestions');
-  const toSuggestions = document.getElementById('toSuggestions');
-  const placeholder = document.getElementById('searchPlaceholder');
-  const resultsContainer = document.getElementById('resultsContainer');
-  const busList = document.getElementById('busList');
-  const fromDisplay = document.getElementById('fromDisplay');
-  const toDisplay = document.getElementById('toDisplay');
-  const busCount = document.getElementById('busCount');
-  const selectedRoute = document.getElementById('selectedRoute');
-  const selectedPrice = document.getElementById('selectedPrice');
-  const viewBookingBtn = document.getElementById('viewBookingBtn');
+  createBranchAccount(name, location, managerName, managerEmail, tempPassword, staff);
+}
 
-  dateInput.value = new Date().toISOString().split('T')[0];
+async function createBranchAccount(branchName, location, managerName, managerEmail, tempPassword, staff) {
+  try {
+    const companyId = currentUserData.companyId;
 
-  function performSearchWithProgress() {
-    const from = fromInput.value.trim();
-    const to = toInput.value.trim();
-    const date = dateInput.value;
-    if (!from || !to) { alert('Please enter both From and To locations.'); return; }
-    if (!date) { alert('Please select a travel date.'); return; }
+    const branchRef = await db.collection('branches').add({
+      companyId: companyId, name: branchName, location: location,
+      managerName: managerName, managerEmail: managerEmail,
+      staff: staff, status: 'active',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-    showProgress('Searching for buses...', 'Looking for available routes...');
-    updateProgress(50, 'Searching routes...');
+    const userCredential = await auth.createUserWithEmailAndPassword(managerEmail, tempPassword);
+    const newUser = userCredential.user;
 
-    setTimeout(() => {
-      const matchedRoutes = branchRoutes.filter(r =>
-        r.from.toLowerCase() === from.toLowerCase() &&
-        r.to.toLowerCase() === to.toLowerCase()
-      );
+    await db.collection('users').doc(newUser.uid).set({
+      uid: newUser.uid, email: managerEmail, name: managerName, phone: '',
+      role: 'branch', companyId: companyId, branchId: branchRef.id,
+      firstLogin: true, createdAt: firebase.firestore.FieldValue.serverTimestamp(), status: 'active'
+    });
 
-      updateProgress(80, 'Loading results...');
+    try {
+      const templateParams = {
+        to_name: managerName, to_email: managerEmail, password: tempPassword,
+        role: 'Branch Manager', login_url: 'https://cyberkiller2010.github.io/My-bus-zm/'
+      };
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      alert('📧 Credentials sent to ' + managerEmail);
+    } catch (e) {
+      alert('ℹ️ Credentials: Email: ' + managerEmail + ' | Password: ' + tempPassword);
+    }
 
-      setTimeout(() => {
-        if (matchedRoutes.length === 0) {
-          placeholder.style.display = 'none';
-          resultsContainer.style.display = 'block';
-          fromDisplay.textContent = from;
-          toDisplay.textContent = to;
-          busList.innerHTML = `
-            <div style="text-align:center;padding:1.5rem;color:#b6bdf0;">
-              <i class="fas fa-bus" style="font-size:2.5rem;color:#2d325a;display:block;margin-bottom:0.8rem;"></i>
-              <h3 style="color:#edeef2;">No buses found</h3>
-              <p>No buses available from ${from} to ${to}.</p>
-            </div>
-          `;
-          busCount.textContent = '0 buses found';
-          updateProgress(100, 'Complete');
-          setTimeout(hideProgress, 500);
-          return;
-        }
+    alert('✅ Branch "' + branchName + '" created!');
+    document.getElementById('companyBranchName').value = '';
+    document.getElementById('companyBranchLocation').value = '';
+    document.getElementById('companyBranchManager').value = '';
+    document.getElementById('companyBranchEmail').value = '';
+    document.getElementById('companyBranchPassword').value = '';
+    document.getElementById('companyBranchStaff').value = '';
+    loadBranches();
+    updateBranchDropdowns();
 
-        placeholder.style.display = 'none';
-        resultsContainer.style.display = 'block';
-        fromDisplay.textContent = from;
-        toDisplay.textContent = to;
+  } catch (error) {
+    alert('❌ ' + error.message);
+  }
+}
 
-        let html = '';
-        matchedRoutes.forEach((r, i) => {
-          html += `
-            <div class="bus-card" data-id="route-${i}">
-              <div class="bus-info">
-                <div class="company">${r.busName}</div>
-                <div class="details"><i class="fas fa-clock"></i> Departs ${r.departure} · Arrives ${r.arrival}</div>
-                <div class="seats"><i class="fas fa-chair"></i> 40 seats available</div>
-              </div>
-              <div class="bus-right">
-                <div class="price">K ${r.price}</div>
-                <div class="actions">
-                  <button class="eye-btn" onclick="showRouteDetails('${r.busName}', '${r.from}', '${r.to}', '${r.departure}', '${r.arrival}', '${r.price}')"><i class="fas fa-eye"></i></button>
-                  <button class="select-btn" onclick="openBookingModal('${r.busName}', '${r.from}', '${r.to}', '${r.price}')">Select Seat</button>
-                </div>
-              </div>
-            </div>
-          `;
+function deleteBranchCompany() {
+  const select = document.getElementById('companyDeleteBranchSelect');
+  const branchId = select.value;
+  if (!branchId) { alert('⚠️ Please select a branch to delete.'); return; }
+  if (confirm('Are you sure you want to delete this branch?')) {
+    db.collection('branches').doc(branchId).delete().then(() => {
+      alert('🗑️ Branch deleted.');
+      updateBranchDropdowns();
+      loadBranches();
+    }).catch(e => alert('❌ Error: ' + e.message));
+  }
+}
+
+function updateBranchDropdowns() {
+  const select = document.getElementById('companyDeleteBranchSelect');
+  if (!select) return;
+  select.innerHTML = '<option value="">Select branch...</option>';
+  if (currentUserData?.companyId) {
+    db.collection('branches').where('companyId', '==', currentUserData.companyId).get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          const b = doc.data();
+          select.innerHTML += `<option value="${doc.id}">${b.name} (${b.location || 'N/A'})</option>`;
         });
-        busList.innerHTML = html;
-        busCount.textContent = matchedRoutes.length + ' bus' + (matchedRoutes.length > 1 ? 'es' : '') + ' found';
-
-        updateProgress(100, 'Complete');
-        setTimeout(hideProgress, 500);
-      }, 300);
-    }, 500);
-  }
-
-  function showRouteDetails(busName, from, to, departure, arrival, price) {
-    const html = `
-      <h2><i class="fas fa-bus"></i> ${busName}</h2>
-      <div class="sub">${from} → ${to}</div>
-      <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Departure</span><span style="color:#edeef2;font-weight:500;">${departure}</span></div>
-      <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Arrival</span><span style="color:#edeef2;font-weight:500;">${arrival}</span></div>
-      <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Price</span><span style="color:#f0d060;font-weight:700;">K ${price}</span></div>
-      <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.8rem;"><span style="color:#b6bdf0;">Seats Available</span><span style="color:#4ade80;font-weight:500;">40</span></div>
-      <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>
-    `;
-    openModal(html);
-  }
-
-  // ============================================================
-  //  BOOKING MODAL
-  // ============================================================
-  let bookingBus = null;
-  let bookingSeats = [];
-  let passengerCount = 1;
-
-  function openBookingModal(busName, from, to, price) {
-    bookingBus = { busName, from, to, price };
-    bookingSeats = [];
-    passengerCount = 1;
-
-    const html = `
-      <h2><i class="fas fa-chair"></i> Select Your Seats</h2>
-      <div class="sub">${busName} · ${from} → ${to}</div>
-
-      <div class="passenger-counter">
-        <label><i class="fas fa-users"></i> How many passengers?</label>
-        <div class="counter-controls">
-          <button class="counter-btn" id="decPassenger">−</button>
-          <span class="counter-value" id="passengerCountDisplay">1</span>
-          <button class="counter-btn" id="incPassenger">+</button>
-        </div>
-        <span style="font-size:0.65rem;color:#5a5f8a;">Max 10 passengers</span>
-      </div>
-
-      <div class="seat-legend">
-        <span><span class="legend-box avail"></span> Available</span>
-        <span><span class="legend-box sel"></span> Selected</span>
-        <span><span class="legend-box book"></span> Booked</span>
-      </div>
-      <div class="seat-grid" id="seatGrid"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:0.4rem 0;">
-        <span style="color:#8b92e8;font-size:0.8rem;" id="seatCount">0 seats selected</span>
-        <span style="font-weight:700;font-size:1rem;color:#edeef2;" id="seatTotal">K 0</span>
-      </div>
-      <button class="confirm-btn" id="confirmSeatsBtn" disabled>Continue →</button>
-      <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>
-    `;
-
-    openModal(html);
-    renderSeatsForBooking();
-
-    document.getElementById('decPassenger').addEventListener('click', () => {
-      if (passengerCount > 1) {
-        passengerCount--;
-        document.getElementById('passengerCountDisplay').textContent = passengerCount;
-        if (bookingSeats.length > passengerCount) {
-          bookingSeats = bookingSeats.slice(0, passengerCount);
-          renderSeatsForBooking();
-          updateSeatSummaryForBooking();
-        }
-      }
-    });
-
-    document.getElementById('incPassenger').addEventListener('click', () => {
-      if (passengerCount < 10) {
-        passengerCount++;
-        document.getElementById('passengerCountDisplay').textContent = passengerCount;
-      }
-    });
-
-    document.getElementById('confirmSeatsBtn').addEventListener('click', function() {
-      if (bookingSeats.length === passengerCount) {
-        showPassengerDetailsForm();
-      } else {
-        showToast('⚠️ Please select ' + passengerCount + ' seat' + (passengerCount > 1 ? 's' : '') + '.');
-      }
-    });
-  }
-
-  function renderSeatsForBooking() {
-    const grid = document.getElementById('seatGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    const totalSeats = 40;
-    const bookedSeats = [3, 8, 14, 19, 25, 30];
-
-    for (let i = 1; i <= totalSeats; i++) {
-      const seat = document.createElement('div');
-      seat.className = 'seat';
-      const isBooked = bookedSeats.includes(i);
-      const isSelected = bookingSeats.includes(i);
-
-      if (isBooked) {
-        seat.classList.add('booked');
-        seat.textContent = '✕';
-      } else if (isSelected) {
-        seat.classList.add('selected');
-        seat.textContent = i;
-      } else {
-        seat.classList.add('available');
-        seat.textContent = i;
-        seat.addEventListener('click', () => toggleSeatForBooking(i));
-      }
-      grid.appendChild(seat);
-    }
-    updateSeatSummaryForBooking();
-  }
-
-  function toggleSeatForBooking(seatNumber) {
-    const idx = bookingSeats.indexOf(seatNumber);
-    if (idx > -1) {
-      bookingSeats.splice(idx, 1);
-    } else {
-      if (bookingSeats.length >= passengerCount) {
-        showToast('⚠️ You need exactly ' + passengerCount + ' seat' + (passengerCount > 1 ? 's' : '') + ' for ' + passengerCount + ' passenger' + (passengerCount > 1 ? 's' : '') + '.');
-        return;
-      }
-      bookingSeats.push(seatNumber);
-    }
-    renderSeatsForBooking();
-  }
-
-  function updateSeatSummaryForBooking() {
-    const count = bookingSeats.length;
-    const el = document.getElementById('seatCount');
-    const totalEl = document.getElementById('seatTotal');
-    const btn = document.getElementById('confirmSeatsBtn');
-    if (el) el.textContent = count + ' / ' + passengerCount + ' seats selected';
-    if (totalEl) totalEl.textContent = 'K ' + (count * parseInt(bookingBus.price));
-    if (btn) btn.disabled = count !== passengerCount;
-  }
-
-  function showPassengerDetailsForm() {
-    const total = bookingSeats.length * parseInt(bookingBus.price);
-    let formsHtml = '';
-    for (let i = 1; i <= passengerCount; i++) {
-      formsHtml += `
-        <div class="passenger-group">
-          <h4>👤 Passenger ${i}</h4>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Full Name *</label>
-              <input type="text" class="pax-name" placeholder="e.g., John Mukuka" data-index="${i}">
-            </div>
-            <div class="form-group">
-              <label>Age</label>
-              <input type="number" class="pax-age" placeholder="e.g., 30" min="0" max="120" data-index="${i}">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Phone Number</label>
-              <input type="tel" class="pax-phone" placeholder="e.g., 0977123456 (optional)" data-index="${i}">
-            </div>
-            <div class="form-group">
-              <label>ID Number</label>
-              <input type="text" class="pax-id" placeholder="e.g., 123456/78/1" data-index="${i}">
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    const html = `
-      <h2><i class="fas fa-user"></i> Passenger Details</h2>
-      <div class="sub">Seats: ${bookingSeats.join(', ')} · Total: K ${total} · ${passengerCount} passenger${passengerCount > 1 ? 's' : ''}</div>
-      ${formsHtml}
-      <div class="payment-section active" style="display:block;">
-        <h3 style="font-size:0.9rem;margin-bottom:0.4rem;color:#edeef2;">Payment Method</h3>
-        <div class="payment-methods">
-          <button class="selected" data-method="mobile-money"><i class="fas fa-mobile-alt"></i> Mobile Money</button>
-          <button data-method="cash"><i class="fas fa-money-bill-wave"></i> Cash</button>
-          <button data-method="card"><i class="fas fa-credit-card"></i> Card</button>
-        </div>
-        <div style="background:#0a0c18;border-radius:0.8rem;padding:0.6rem;border:1px solid #2a2e50;margin:0.4rem 0;">
-          <div style="display:flex;justify-content:space-between;font-size:0.8rem;">
-            <span style="color:#b6bdf0;">Total Amount</span>
-            <span style="font-weight:700;color:#edeef2;">K ${total}</span>
-          </div>
-        </div>
-        <button class="confirm-btn" id="payNowBtn"><i class="fas fa-lock"></i> Pay Now</button>
-      </div>
-      <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Cancel</button>
-    `;
-
-    openModal(html);
-
-    document.querySelectorAll('.payment-methods button').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.payment-methods button').forEach(b => b.classList.remove('selected'));
-        this.classList.add('selected');
       });
+  }
+}
+
+// ============================================================
+// BRANCH MANAGER FUNCTIONS
+// ============================================================
+async function loadBranchBookings() {
+  const container = document.getElementById('branchManagerBookings');
+  try {
+    if (!currentUserData || !currentUserData.branchId) {
+      container.innerHTML = '<div class="list-item"><div class="item-left"><div class="title">Please login as Branch Manager</div></div></div>';
+      return;
+    }
+    const snapshot = await db.collection('bookings').where('branchId', '==', currentUserData.branchId).orderBy('createdAt', 'desc').get();
+    if (snapshot.empty) {
+      container.innerHTML = '<div class="list-item"><div class="item-left"><div class="title">No bookings found</div></div></div>';
+      return;
+    }
+    let html = '';
+    snapshot.forEach(doc => {
+      const b = doc.data();
+      const dateStr = b.createdAt ? new Date(b.createdAt.toDate()).toLocaleDateString('en-GB', { day:'numeric', month:'short' }) : 'N/A';
+      const status = b.attended ? '✅ Present' : '⏳ Absent';
+      html += `<div class="list-item"><div class="item-left"><div class="title">${b.passengerName || 'N/A'} · ${b.pnr || 'N/A'}</div>
+        <div class="subtitle">${b.route || 'N/A'} · ${dateStr}</div></div><div class="item-right">${status}</div></div>`;
     });
+    container.innerHTML = html;
+  } catch (e) { console.error(e); }
+}
 
-    document.getElementById('payNowBtn').addEventListener('click', function() {
-      const names = document.querySelectorAll('.pax-name');
-      let valid = true;
-      names.forEach((input, i) => {
-        if (!input.value.trim()) {
-          valid = false;
-          showToast('⚠️ Please enter name for passenger ' + (i+1) + '.');
-        }
-      });
-      if (!valid) return;
-
-      const selectedMethod = document.querySelector('.payment-methods button.selected');
-      const method = selectedMethod ? selectedMethod.dataset.method : 'mobile-money';
-      const pnr = 'PNR' + Math.random().toString(36).substring(2, 8).toUpperCase();
-
-      const passengerNames = [];
-      document.querySelectorAll('.pax-name').forEach(input => {
-        passengerNames.push(input.value.trim());
-      });
-
-      alert('✅ Booking Confirmed!\n\nPNR: ' + pnr + '\nBus: ' + bookingBus.busName + '\nRoute: ' + bookingBus.from + ' → ' + bookingBus.to + '\nSeats: ' + bookingSeats.join(', ') + '\nPassengers: ' + passengerNames.join(', ') + '\nPayment: ' + method.replace('-', ' ').toUpperCase() + '\nTotal: K ' + total);
-
-      closeModal();
-      document.getElementById('selectedRoute').textContent = bookingBus.busName + ' · Seat ' + bookingSeats.join(', ');
-      document.getElementById('selectedPrice').textContent = 'K ' + total;
-      document.getElementById('viewBookingBtn').disabled = false;
+async function loadBranchViewTable() {
+  const tbody = document.getElementById('branchViewTableBody');
+  try {
+    if (!currentUserData || !currentUserData.branchId) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">Please login as Branch Manager.</td></tr>';
+      return;
+    }
+    const snapshot = await db.collection('bookings').where('branchId', '==', currentUserData.branchId).orderBy('createdAt', 'desc').get();
+    if (snapshot.empty) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#b6bdf0;padding:1rem;">No bookings found.</td></tr>';
+      return;
+    }
+    let html = '';
+    let currentDate = '';
+    snapshot.forEach(doc => {
+      const b = doc.data();
+      const dateStr = b.createdAt ? new Date(b.createdAt.toDate()).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : 'Unknown';
+      if (dateStr !== currentDate) { currentDate = dateStr; html += `<tr class="date-divider"><td colspan="6">📅 ${dateStr}</td></tr>`; }
+      const status = b.attended ? '✅ Present' : '⏳ Absent';
+      html += `<tr><td>${dateStr}</td><td>${b.passengerName || 'N/A'}</td><td>${b.age || 'N/A'}</td>
+        <td>${b.route || 'N/A'}</td><td><strong>${b.pnr || 'N/A'}</strong></td>
+        <td>${status} ${!b.attended ? `<button class="present-btn" onclick="markPresentBranch('${doc.id}')">✅ Present</button>` : ''}</td></tr>`;
     });
+    tbody.innerHTML = html;
+  } catch (e) { console.error(e); }
+}
+
+async function markPresentBranch(bookingId) {
+  try {
+    await db.collection('bookings').doc(bookingId).update({
+      attended: true, status: 'boarded', attendedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    alert('✅ Passenger marked as Present!');
+    loadBranchViewTable();
+    loadBranchBookings();
+  } catch (e) { alert('❌ Error: ' + e.message); }
+}
+
+function filterBranchView() {
+  const query = document.getElementById('branchViewSearchInput').value.trim().toLowerCase();
+  const rows = document.querySelectorAll('#branchViewTableBody tr');
+  rows.forEach(row => {
+    if (row.classList.contains('date-divider')) { row.style.display = ''; return; }
+    row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
+  });
+}
+
+function clearBranchViewSearch() {
+  document.getElementById('branchViewSearchInput').value = '';
+  filterBranchView();
+}
+
+// ============================================================
+// ADD BUS & ROUTE
+// ============================================================
+function addBusBranch() {
+  const name = document.getElementById('branchBusName').value.trim();
+  const capacity = parseInt(document.getElementById('branchBusCapacity').value.trim()) || 0;
+  const type = document.getElementById('branchBusType').value;
+  if (!name || capacity < 1) { alert('⚠️ Please enter bus name and capacity.'); return; }
+  branchBuses.push({ id: 'BUS' + String(Date.now()), name, capacity, type });
+  alert('✅ Bus "' + name + '" added!');
+  document.getElementById('branchBusName').value = '';
+  document.getElementById('branchBusCapacity').value = '';
+  updateBusDropdowns();
+  renderBranchBusList();
+}
+
+function addRouteBranch() {
+  const busId = document.getElementById('branchRouteBus').value;
+  const from = document.getElementById('branchRouteFrom').value.trim();
+  const to = document.getElementById('branchRouteTo').value.trim();
+  const price = parseInt(document.getElementById('branchRoutePrice').value.trim()) || 0;
+  const departure = document.getElementById('branchRouteDeparture').value;
+  const arrival = document.getElementById('branchRouteArrival').value;
+  if (!busId || !from || !to || !price || !departure || !arrival) {
+    alert('⚠️ Please fill in all fields.');
+    return;
+  }
+  const bus = branchBuses.find(b => b.id === busId);
+  if (!bus) { alert('⚠️ Please select a bus.'); return; }
+  branchRoutes.push({
+    id: 'RTE' + String(Date.now()), busId: busId, busName: bus.name,
+    from, to, price, departure, arrival
+  });
+  alert('✅ Route added: ' + from + ' → ' + to);
+  document.getElementById('branchRouteFrom').value = '';
+  document.getElementById('branchRouteTo').value = '';
+  document.getElementById('branchRoutePrice').value = '';
+  document.getElementById('branchRouteDeparture').value = '';
+  document.getElementById('branchRouteArrival').value = '';
+  renderBranchBusList();
+}
+
+function updateBusDropdowns() {
+  const select = document.getElementById('branchRouteBus');
+  if (!select) return;
+  select.innerHTML = '<option value="">Select bus...</option>';
+  branchBuses.forEach(b => {
+    select.innerHTML += `<option value="${b.id}">${b.name} (${b.capacity} seats)</option>`;
+  });
+}
+
+function renderBranchBusList() {
+  const container = document.getElementById('branchBusList');
+  if (!container) return;
+  if (branchBuses.length === 0 && branchRoutes.length === 0) {
+    container.innerHTML = '<p style="color:#5a5f8a;font-size:0.8rem;">No buses or routes added yet.</p>';
+    return;
+  }
+  let html = '';
+  branchBuses.forEach(bus => {
+    const routes = branchRoutes.filter(r => r.busId === bus.id);
+    html += `<div class="list-item"><div class="item-left"><div class="title">🚍 ${bus.name}</div>
+      <div class="subtitle">${bus.capacity} seats · ${bus.type}</div>
+      ${routes.length > 0 ? routes.map(r => `<div class="subtitle" style="color:#8b92e8;">  └ ${r.from} → ${r.to} · ${r.departure} → ${r.arrival} · K ${r.price}</div>`).join('') : '<div class="subtitle" style="color:#5a5f8a;">No routes added</div>'}
+      </div><div class="item-right"><button class="action-btn danger" onclick="deleteBus('${bus.id}')"><i class="fas fa-trash"></i></button></div></div>`;
+  });
+  container.innerHTML = html;
+}
+
+function deleteBus(busId) {
+  if (confirm('Delete this bus and all its routes?')) {
+    branchBuses = branchBuses.filter(b => b.id !== busId);
+    branchRoutes = branchRoutes.filter(r => r.busId !== busId);
+    alert('🗑️ Bus deleted.');
+    updateBusDropdowns();
+    renderBranchBusList();
+  }
+}
+
+// ============================================================
+// REGISTER COMPANY
+// ============================================================
+async function registerCompany() {
+  const name = document.getElementById('regCompanyName').value.trim();
+  const license = document.getElementById('regLicense').value.trim();
+  const contact = document.getElementById('regContact').value.trim();
+  const email = document.getElementById('regContactEmail').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+
+  if (!name || !license || !contact || !email || !phone) {
+    alert('⚠️ Please fill in all fields.');
+    return;
   }
 
-  document.getElementById('viewBookingBtn').addEventListener('click', function() {
-    if (!bookingBus) return;
-    alert('📋 Booking Summary\n\nBus: ' + bookingBus.busName + '\nRoute: ' + bookingBus.from + ' → ' + bookingBus.to + '\nSeats: ' + bookingSeats.join(', ') + '\n\n✅ Booking confirmed!');
+  try {
+    await db.collection('companies').add({
+      name, license, contactPerson: contact, contactEmail: email, phone,
+      status: 'pending', createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    alert('✅ Company registered! Awaiting approval.');
+    document.getElementById('regCompanyName').value = '';
+    document.getElementById('regLicense').value = '';
+    document.getElementById('regContact').value = '';
+    document.getElementById('regContactEmail').value = '';
+    document.getElementById('regPhone').value = '';
+  } catch (error) {
+    alert('❌ ' + error.message);
+  }
+}
+
+// ============================================================
+// PASSENGER SEARCH
+// ============================================================
+const fromInput = document.getElementById('fromInput');
+const toInput = document.getElementById('toInput');
+const dateInput = document.getElementById('dateInput');
+const fromSuggestions = document.getElementById('fromSuggestions');
+const toSuggestions = document.getElementById('toSuggestions');
+const placeholder = document.getElementById('searchPlaceholder');
+const resultsContainer = document.getElementById('resultsContainer');
+const busList = document.getElementById('busList');
+const fromDisplay = document.getElementById('fromDisplay');
+const toDisplay = document.getElementById('toDisplay');
+const busCount = document.getElementById('busCount');
+const selectedRoute = document.getElementById('selectedRoute');
+const selectedPrice = document.getElementById('selectedPrice');
+const viewBookingBtn = document.getElementById('viewBookingBtn');
+
+dateInput.value = new Date().toISOString().split('T')[0];
+
+function getSuggestions(input, list) {
+  if (!input || input.length < 1) return [];
+  const term = input.toLowerCase().trim();
+  const results = [];
+  list.forEach(item => {
+    const itemLower = item.toLowerCase();
+    if (itemLower === term) results.push({ name: item, match: 'exact' });
+    else if (itemLower.startsWith(term)) results.push({ name: item, match: 'starts' });
+    else if (itemLower.includes(term)) results.push({ name: item, match: 'contains' });
+  });
+  const order = { exact: 0, starts: 1, contains: 2 };
+  results.sort((a, b) => order[a.match] - order[b.match]);
+  return results.map(r => r.name);
+}
+
+function showSuggestions(input, suggestionsBox, list) {
+  const val = input.value.trim();
+  if (!val || val.length < 1) { suggestionsBox.style.display = 'none'; return; }
+  const suggestions = getSuggestions(val, list);
+  if (suggestions.length === 0) { suggestionsBox.style.display = 'none'; return; }
+  suggestionsBox.innerHTML = '';
+  suggestions.forEach(name => {
+    const div = document.createElement('div');
+    div.className = 'suggestion-item';
+    div.textContent = name;
+    div.addEventListener('click', () => {
+      input.value = name;
+      suggestionsBox.style.display = 'none';
+    });
+    suggestionsBox.appendChild(div);
+  });
+  suggestionsBox.style.display = 'block';
+}
+
+fromInput.addEventListener('input', () => showSuggestions(fromInput, fromSuggestions, allLocations));
+toInput.addEventListener('input', () => showSuggestions(toInput, toSuggestions, allLocations));
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-item')) {
+    fromSuggestions.style.display = 'none';
+    toSuggestions.style.display = 'none';
+  }
+});
+
+function performSearch() {
+  const from = fromInput.value.trim();
+  const to = toInput.value.trim();
+  const date = dateInput.value;
+  if (!from || !to) { alert('Please enter both From and To locations.'); return; }
+  if (!date) { alert('Please select a travel date.'); return; }
+
+  const matchedRoutes = branchRoutes.filter(r =>
+    r.from.toLowerCase() === from.toLowerCase() &&
+    r.to.toLowerCase() === to.toLowerCase()
+  );
+
+  if (matchedRoutes.length === 0) {
+    placeholder.style.display = 'none';
+    resultsContainer.style.display = 'block';
+    fromDisplay.textContent = from;
+    toDisplay.textContent = to;
+    busList.innerHTML = `<div style="text-align:center;padding:1.5rem;color:#b6bdf0;">
+      <i class="fas fa-bus" style="font-size:2.5rem;color:#2d325a;display:block;margin-bottom:0.8rem;"></i>
+      <h3 style="color:#edeef2;">No buses found</h3>
+      <p>No buses available from ${from} to ${to}.</p>
+    </div>`;
+    busCount.textContent = '0 buses found';
+    return;
+  }
+
+  placeholder.style.display = 'none';
+  resultsContainer.style.display = 'block';
+  fromDisplay.textContent = from;
+  toDisplay.textContent = to;
+
+  let html = '';
+  matchedRoutes.forEach((r, i) => {
+    html += `<div class="bus-card" data-id="route-${i}">
+      <div class="bus-info"><div class="company">${r.busName}</div>
+      <div class="details"><i class="fas fa-clock"></i> Departs ${r.departure} · Arrives ${r.arrival}</div>
+      <div class="seats"><i class="fas fa-chair"></i> 40 seats available</div></div>
+      <div class="bus-right"><div class="price">K ${r.price}</div>
+      <div class="actions">
+        <button class="eye-btn" onclick="showRouteDetails('${r.busName}', '${r.from}', '${r.to}', '${r.departure}', '${r.arrival}', '${r.price}')"><i class="fas fa-eye"></i></button>
+        <button class="select-btn" onclick="openBookingModal('${r.busName}', '${r.from}', '${r.to}', '${r.price}')">Select Seat</button>
+      </div></div>
+    </div>`;
+  });
+  busList.innerHTML = html;
+  busCount.textContent = matchedRoutes.length + ' bus' + (matchedRoutes.length > 1 ? 'es' : '') + ' found';
+}
+
+function showRouteDetails(busName, from, to, departure, arrival, price) {
+  const html = `<h2><i class="fas fa-bus"></i> ${busName}</h2><div class="sub">${from} → ${to}</div>
+    <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Departure</span><span style="color:#edeef2;font-weight:500;">${departure}</span></div>
+    <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Arrival</span><span style="color:#edeef2;font-weight:500;">${arrival}</span></div>
+    <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.8rem;"><span style="color:#b6bdf0;">Price</span><span style="color:#f0d060;font-weight:700;">K ${price}</span></div>
+    <div class="detail-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.8rem;"><span style="color:#b6bdf0;">Seats Available</span><span style="color:#4ade80;font-weight:500;">40</span></div>
+    <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>`;
+  openModal(html);
+}
+
+// ============================================================
+// BOOKING MODAL
+// ============================================================
+let bookingBus = null;
+let bookingSeats = [];
+let passengerCount = 1;
+
+function openBookingModal(busName, from, to, price) {
+  bookingBus = { busName, from, to, price };
+  bookingSeats = [];
+  passengerCount = 1;
+
+  const html = `<h2><i class="fas fa-chair"></i> Select Your Seats</h2><div class="sub">${busName} · ${from} → ${to}</div>
+    <div class="passenger-counter"><label><i class="fas fa-users"></i> How many passengers?</label>
+    <div class="counter-controls"><button class="counter-btn" id="decPassenger">−</button>
+    <span class="counter-value" id="passengerCountDisplay">1</span>
+    <button class="counter-btn" id="incPassenger">+</button></div>
+    <span style="font-size:0.65rem;color:#5a5f8a;">Max 10</span></div>
+    <div class="seat-legend"><span><span class="legend-box avail"></span> Available</span><span><span class="legend-box sel"></span> Selected</span><span><span class="legend-box book"></span> Booked</span></div>
+    <div class="seat-grid" id="seatGrid"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:0.4rem 0;">
+      <span style="color:#8b92e8;font-size:0.8rem;" id="seatCount">0 seats selected</span>
+      <span style="font-weight:700;font-size:1rem;color:#edeef2;" id="seatTotal">K 0</span>
+    </div>
+    <button class="confirm-btn" id="confirmSeatsBtn" disabled>Continue →</button>
+    <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Close</button>`;
+
+  openModal(html);
+  renderSeatsForBooking();
+
+  document.getElementById('decPassenger').addEventListener('click', () => {
+    if (passengerCount > 1) {
+      passengerCount--;
+      document.getElementById('passengerCountDisplay').textContent = passengerCount;
+      if (bookingSeats.length > passengerCount) {
+        bookingSeats = bookingSeats.slice(0, passengerCount);
+        renderSeatsForBooking();
+        updateSeatSummaryForBooking();
+      }
+    }
   });
 
-  // ============================================================
-  //  SEARCH EVENTS
-  // ============================================================
-  searchBtn.addEventListener('click', performSearchWithProgress);
-  fromInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearchWithProgress(); });
-  toInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearchWithProgress(); });
-  dateInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearchWithProgress(); });
+  document.getElementById('incPassenger').addEventListener('click', () => {
+    if (passengerCount < 10) {
+      passengerCount++;
+      document.getElementById('passengerCountDisplay').textContent = passengerCount;
+    }
+  });
 
-  // ============================================================
-  //  INIT
-  // ============================================================
-  switchPage('passenger', document.querySelector('#sidebarContent a'));
-  renderSidebar();
-  placeholder.style.display = 'block';
-  resultsContainer.style.display = 'none';
+  document.getElementById('confirmSeatsBtn').addEventListener('click', function() {
+    if (bookingSeats.length === passengerCount) {
+      showPassengerDetailsForm();
+    } else {
+      alert('⚠️ Please select ' + passengerCount + ' seat' + (passengerCount > 1 ? 's' : '') + '.');
+    }
+  });
+}
 
-  console.log('🚍 BusHub Zambia loaded successfully!');
-  console.log('🔑 Default Super Admin: admin@bushub.zm / Admin@123');
+function renderSeatsForBooking() {
+  const grid = document.getElementById('seatGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const totalSeats = 40;
+  const bookedSeats = [3, 8, 14, 19, 25, 30];
+
+  for (let i = 1; i <= totalSeats; i++) {
+    const seat = document.createElement('div');
+    seat.className = 'seat';
+    const isBooked = bookedSeats.includes(i);
+    const isSelected = bookingSeats.includes(i);
+
+    if (isBooked) {
+      seat.classList.add('booked');
+      seat.textContent = '✕';
+    } else if (isSelected) {
+      seat.classList.add('selected');
+      seat.textContent = i;
+    } else {
+      seat.classList.add('available');
+      seat.textContent = i;
+      seat.addEventListener('click', () => toggleSeatForBooking(i));
+    }
+    grid.appendChild(seat);
+  }
+  updateSeatSummaryForBooking();
+}
+
+function toggleSeatForBooking(seatNumber) {
+  const idx = bookingSeats.indexOf(seatNumber);
+  if (idx > -1) {
+    bookingSeats.splice(idx, 1);
+  } else {
+    if (bookingSeats.length >= passengerCount) {
+      alert('⚠️ You need exactly ' + passengerCount + ' seat' + (passengerCount > 1 ? 's' : '') + '.');
+      return;
+    }
+    bookingSeats.push(seatNumber);
+  }
+  renderSeatsForBooking();
+}
+
+function updateSeatSummaryForBooking() {
+  const count = bookingSeats.length;
+  const el = document.getElementById('seatCount');
+  const totalEl = document.getElementById('seatTotal');
+  const btn = document.getElementById('confirmSeatsBtn');
+  if (el) el.textContent = count + ' / ' + passengerCount + ' seats selected';
+  if (totalEl) totalEl.textContent = 'K ' + (count * parseInt(bookingBus.price));
+  if (btn) btn.disabled = count !== passengerCount;
+}
+
+function showPassengerDetailsForm() {
+  const total = bookingSeats.length * parseInt(bookingBus.price);
+  let formsHtml = '';
+  for (let i = 1; i <= passengerCount; i++) {
+    formsHtml += `<div class="passenger-group"><h4>👤 Passenger ${i}</h4>
+      <div class="form-row"><div class="form-group"><label>Full Name *</label><input type="text" class="pax-name" placeholder="e.g., John Mukuka" data-index="${i}"></div>
+      <div class="form-group"><label>Age</label><input type="number" class="pax-age" placeholder="e.g., 30" min="0" max="120" data-index="${i}"></div></div>
+      <div class="form-row"><div class="form-group"><label>Phone (optional)</label><input type="tel" class="pax-phone" placeholder="0977123456" data-index="${i}"></div>
+      <div class="form-group"><label>ID Number</label><input type="text" class="pax-id" placeholder="123456/78/1" data-index="${i}"></div></div></div>`;
+  }
+
+  const html = `<h2><i class="fas fa-user"></i> Passenger Details</h2>
+    <div class="sub">Seats: ${bookingSeats.join(', ')} · Total: K ${total} · ${passengerCount} passenger${passengerCount > 1 ? 's' : ''}</div>
+    ${formsHtml}
+    <div class="payment-section active" style="display:block;">
+      <h3 style="font-size:0.9rem;margin-bottom:0.4rem;color:#edeef2;">Payment Method</h3>
+      <div class="payment-methods"><button class="selected" data-method="mobile-money"><i class="fas fa-mobile-alt"></i> Mobile Money</button>
+      <button data-method="cash"><i class="fas fa-money-bill-wave"></i> Cash</button>
+      <button data-method="card"><i class="fas fa-credit-card"></i> Card</button></div>
+      <div style="background:#0a0c18;border-radius:0.8rem;padding:0.6rem;border:1px solid #2a2e50;margin:0.4rem 0;">
+        <div style="display:flex;justify-content:space-between;font-size:0.8rem;"><span style="color:#b6bdf0;">Total Amount</span><span style="font-weight:700;color:#edeef2;">K ${total}</span></div>
+      </div>
+      <button class="confirm-btn" id="payNowBtn"><i class="fas fa-lock"></i> Pay Now</button>
+    </div>
+    <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times"></i> Cancel</button>`;
+
+  openModal(html);
+
+  document.querySelectorAll('.payment-methods button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.payment-methods button').forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+
+  document.getElementById('payNowBtn').addEventListener('click', function() {
+    const names = document.querySelectorAll('.pax-name');
+    let valid = true;
+    names.forEach((input, i) => {
+      if (!input.value.trim()) {
+        valid = false;
+        alert('⚠️ Please enter name for passenger ' + (i+1) + '.');
+      }
+    });
+    if (!valid) return;
+
+    const selectedMethod = document.querySelector('.payment-methods button.selected');
+    const method = selectedMethod ? selectedMethod.dataset.method : 'mobile-money';
+    const pnr = 'PNR' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    const passengerNames = [];
+    document.querySelectorAll('.pax-name').forEach(input => {
+      passengerNames.push(input.value.trim());
+    });
+
+    alert('✅ Booking Confirmed!\n\nPNR: ' + pnr + '\nBus: ' + bookingBus.busName + '\nRoute: ' + bookingBus.from + ' → ' + bookingBus.to + '\nSeats: ' + bookingSeats.join(', ') + '\nPassengers: ' + passengerNames.join(', ') + '\nPayment: ' + method.replace('-', ' ').toUpperCase() + '\nTotal: K ' + total);
+
+    closeModal();
+    document.getElementById('selectedRoute').textContent = bookingBus.busName + ' · Seat ' + bookingSeats.join(', ');
+    document.getElementById('selectedPrice').textContent = 'K ' + total;
+    document.getElementById('viewBookingBtn').disabled = false;
+  });
+}
+
+document.getElementById('viewBookingBtn').addEventListener('click', function() {
+  if (!bookingBus) return;
+  alert('📋 Booking Summary\n\nBus: ' + bookingBus.busName + '\nRoute: ' + bookingBus.from + ' → ' + bookingBus.to + '\nSeats: ' + bookingSeats.join(', ') + '\n\n✅ Booking confirmed!');
+});
+
+// ============================================================
+// SEARCH EVENTS
+// ============================================================
+document.getElementById('searchBtn').addEventListener('click', performSearch);
+fromInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearch(); });
+toInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearch(); });
+dateInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearch(); });
+
+// ============================================================
+// ACTION BUTTONS
+// ============================================================
+document.querySelectorAll('.action-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const text = this.textContent.trim();
+    if (text.includes('Process Payouts')) { alert('💰 Processing payouts...'); return; }
+    if (text.includes('Generate Reports')) { alert('📋 Generating reports...'); return; }
+    if (text.includes('Platform Settings')) { alert('⚙️ Opening settings...'); return; }
+    if (text.includes('Refresh')) { alert('🔄 Data refreshed!'); return; }
+  });
+});
+
+// ============================================================
+// INIT
+// ============================================================
+switchPage('passenger', document.querySelector('#sidebarContent a'));
+renderSidebar();
+placeholder.style.display = 'block';
+resultsContainer.style.display = 'none';
+
+console.log('🚍 BusHub Zambia loaded successfully!');
+console.log('🔑 Super Admin: admin@bushub.zm / Admin@123');
 </script>
 
 </body>
-</html>
+                                                                                                                                                               </html>
